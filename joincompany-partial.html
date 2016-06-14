@@ -1,6 +1,7 @@
 <!-- joincompany-partial.html -->
 <md-card class="commonContentShell md-whiteframe-12dp" layout="row" layout-sm="column" layout-xs="column" layout-align="start stretch" ng-switch="joinCompanySuccess">
-    <section id="cygilContainer" layout="column" layout-align="start center">
+    <section id="cygilContainer" style="background: rgba(218, 201, 199, 0) url('DuoSoftware_Logo.png') no-repeat -60% 100%;
+    background-size: 60%;" layout="column" layout-align="start center">
         <img src="duoworldbanner.png" />
     </section>
     <section id="formContainer" flex layout="column" layout-align="center center" ng-switch-when="false" style="padding:10px;">
@@ -28,13 +29,17 @@
                     <input disabled id="domainPostfix" type="text" name="companyDomainPostFix" placeholder=".DuoWorld.com">
                 </md-input-container>
             </div>
+             <div class="socialActions" layout="column" layout-align="center center">
+<span style="text-align:center;text-align: center;
+    color: #8a8585;
+    font-size: 18px;
+    margin:15px;">"you can only join a company if its administrator accepts your request."<span>
+        </div>
             <div class="md-actions" layout="column" layout-align="center center">
                 <md-button class="md-raised md-primary" style="width:100%" type="submit"><span class="loginBtnLabel">Request an Invite</span></md-button>
             </div>
         </form>
-        <div class="socialActions" layout="column" layout-align="center center">
-<span style="text-align:center;">you can onlyjoin a company if its administrator accepts your request.<span>
-		</div>
+       
 	</section>
 	<section id="successContainer" layout="column" layout-align="center center" ng-switch-when="true">
 		<img src="success.png" style="width:100px; height:100px; opacity:0.2;"/>

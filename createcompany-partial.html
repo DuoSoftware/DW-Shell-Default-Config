@@ -4,7 +4,7 @@
         <img src="duoworldbanner.png" />
     </section>
     <section id="formContainer" flex layout="column" layout-align="center center" ng-switch-when="false" style="padding:10px;">
-        <form name="createCompanyForm" ng-submit="submitCreateCompanyDetails(createCompanyDetails)" autocomplete="off">
+        <form name="createCompanyForm" ng-submit="showPlans()" autocomplete="off">
             <md-input-container md-no-float class="md-block" flex>
                 <input required id="companyName" type="text" name="companyName" placeholder="company name" ng-model="createCompanyDetails.Name">
                 <div ng-messages="createCompanyForm.companyName.$error">
@@ -22,15 +22,6 @@
                     <input disabled id="domainPostfix" type="text" name="companyDomainPostFix" placeholder=".DuoWorld.com" ng-model="hostedDomain">
                 </md-input-container>
             </div>
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Tenant Type</label>
-                <md-select ng-model="createCompanyDetails.Type">
-                    <md-optgroup label="Select Tenant Type">
-                        <md-option value="dev" flex>Developer</md-option>
-                        <md-option value="com" flex>Company</md-option>
-                    </md-optgroup>
-                </md-select>
-            </md-input-container>
             <md-input-container md-no-float class="md-block" flex>
                 <md-select name="businessType" placeholder="business type" ng-model="createCompanyDetails.OtherData.CompanyType" md-on-open="loadBusinessType()">
                     <md-option ng-value="bizType.businessName" ng-repeat="bizType in businessType">{{bizType.businessName}}</md-option>
@@ -39,6 +30,15 @@
                     <div ng-message="required">Please select a business type.</div>
                 </div>
             </md-input-container>
+            <md-input-container md-no-float class="md-block" flex-gt-sm style="margin-top:36px !important;">
+                <md-select placeholder="Tenant Type" ng-model="createCompanyDetails.TenantType">
+                    <md-optgroup label="Select Tenant Type">
+                        <md-option value="Developer" flex>Developer</md-option>
+                        <md-option value="Company" flex>Company</md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+            
             <md-input-container md-no-float class="md-block" flex style="margin-top:36px !important; margin-bottom:46px !important; ">
                 <md-select name="companyLocation" placeholder="company location" ng-model="createCompanyDetails.OtherData.CompanyLocation" md-on-open="loadLocations()">
                     <md-option ng-repeat="location in companyLocation" ng-value="location.countryName">{{location.countryName}}</md-option>

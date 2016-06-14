@@ -1,35 +1,51 @@
-<div layout="row" layout="space-around center" style="width:70%">
-
-    <md-card flex class="md-whiteframe-12dp" ng-repeat="plan in companyPricePlans" ng-class="{selected: $index == selectedCard}">
-
-        <center style="background: #3f51b5;
-    padding: 30px;
-    color: lightgrey;
-    font-size: 20px;">
-
-            <span style="color:white;font-size:65px;font-weight:300;"><div ng-if="plan.price == '0'">Free <span style="color:white;font-size:20px;">{{plan.per}}</span></div>
-<div ng-if="plan.price != '0'">$ {{plan.price}} <span style="color:white;font-size:20px;">{{plan.per}}</span></div>
-</span>
+<div>
+    <div layout="row" layout-align-gt-sm="center center" layout-align="center start" style="width:100vw;height:100vh;overflow:auto" layout-wrap>
 
 
-<p>{{plan.name}}</p>
-</center>
+        <md-card ng-mouseover="showAdditional = true" ng-mouseleave="showAdditional = false" ng-repeat="plan in companyPricePlans" layout="column" layout-align="center center" class="{{plan.id}} plan-card">
+            <!--
+            <div layout="row" layout-align="center center" style="background-image: url(images/tennantassets/duoworldlogin.png);
+    background-color: white;
+    background-blend-mode: multiply;
+    background-size: cover;
+    width: 100%;
+    height: 120px;" hide-sm hide-xs>
 
-<md-card-content layout="column" layout-align="center center" style="color: rgb(105, 99, 99);
-    font-size: 17px;">
-    <p layout="row">{{plan.numberOfUsers }} <span ng-if="plan.numberOfUsers == '1'">&nbspUser</span><span ng-if="plan.numberOfUsers != '1'">&nbspUsers</span></p>
-    <p>{{plan.numberOfApps}} Apps</p>
-    <p>{{plan.storage}} of Storage</p>
+</div>
+-->
+            <p style="margin:20px;">{{plan.name}}</p>
+            <div class="plan-title" layout="row" layout-align="center center">
+                <p ng-if="plan.price == '0'">Free
+                    <span style="font-size:20px;">{{plan.per}}</span>
+                </p>
+                <p ng-if="plan.price != '0'">$ {{plan.price}}
+                    <span style="font-size:20px;">{{plan.per}}</span>
+                </p>
+            </div>
 
-</md-card-content>
-<md-card-content layout="column" layout-align="center center">
-    <b>Additional Storage:</b>
+            <div class="plan-details" layout="column" layout-align="center start">
+
+                <p layout="row">+ {{plan.numberOfUsers }} <span ng-if="plan.numberOfUsers == '1'">&nbspUser</span><span ng-if="plan.numberOfUsers != '1'">&nbspUsers</span></p>
+                <p>+ {{plan.numberOfApps}} Apps</p>
+                <p>+ {{plan.storage}} of Storage</p>
+                <div ng-init="showAdditional = false" layout-padding ng-show="showAdditional" style="color: rgb(103, 97, 97);">
+                    <b>Additional Storage:</b>
+                    <p>+ 25 GB/Month: 4.99</p>
+                    <p>+ 100 GB/Month: 9.99</p>
+                    <p>+ 1 TB/Month: 24.99</p>
+                </div>
+                <br>
+                <md-button class="md-raised {{plan.id}}" ng-click="selectPlan(plan)" style="width:100%;color:white;"> Select Plan</md-button>
+            </div>
+
+            <!--
+    <div>
     <p>25 GB/Month: 4.99</p>
     <p>100 GB/Month: 9.99</p>
     <p>1 TB/Month: 24.99</p>
-    <md-button class="md-raised md-primary" style="width:100%" type="submit"><span class="loginBtnLabel" ng-click="showStep(3)">select plan</span></md-button>
-</md-card-content>
-
-
-</md-card>
 </div>
+-->
+
+        </md-card>
+        </md-content>
+    </div>
