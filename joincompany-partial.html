@@ -1,0 +1,44 @@
+<!-- joincompany-partial.html -->
+<md-card class="commonContentShell md-whiteframe-12dp" layout="row" layout-sm="column" layout-xs="column" layout-align="start stretch" ng-switch="joinCompanySuccess">
+    <section id="cygilContainer" layout="column" layout-align="start center">
+        <img src="duoworldbanner.png" />
+    </section>
+    <section id="formContainer" flex layout="column" layout-align="center center" ng-switch-when="false" style="padding:10px;">
+        <form name="joinCompanyForm" ng-submit="submitJoinCompanyDetails(joinCompanyDetails)" autocomplete="off">
+            <!-- <md-input-container md-no-float class="md-block" flex>
+				<input required id="companyName" type="text" name=companyName placeholder="company name" ng-model="joinCompanyDetails.CompanyName">
+				<div ng-messages="joinCompanyForm.companyName.$error">
+					<div ng-message="required">a valid company name is required.</div>
+				</div>
+			</md-input-container>
+			<md-input-container md-no-float class="md-block" flex>
+				<input required="" id="adminEmail" type="email" name="adminEmail" placeholder="company administrator email" ng-model="joinCompanyDetails.AdminEmail" ng-pattern="/^.+@.+\..+$/"/>
+				<div ng-messages="joinCompanyForm.adminEmail.$error" role="alert">
+					<div ng-message-exp="['required','pattern']">a valid email address is required.</div>
+				</div>
+			</md-input-container> -->
+            <div layout="row">
+                <md-input-container md-no-float class="md-block" flex="70">
+                    <input required id="companyDomain" type="text" name="companyDomain" placeholder="company domain" ng-model="joinCompanyDetails.CompanyDomain">
+                    <div ng-messages="joinCompanyForm.companyDomain.$error">
+                        <div ng-message="required">a valid company domain name is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container md-no-float class="md-block" flex="30">
+                    <input disabled id="domainPostfix" type="text" name="companyDomainPostFix" placeholder=".DuoWorld.com">
+                </md-input-container>
+            </div>
+            <div class="md-actions" layout="column" layout-align="center center">
+                <md-button class="md-raised md-primary" style="width:100%" type="submit"><span class="loginBtnLabel">Request an Invite</span></md-button>
+            </div>
+        </form>
+        <div class="socialActions" layout="column" layout-align="center center">
+<span style="text-align:center;">you can onlyjoin a company if its administrator accepts your request.<span>
+		</div>
+	</section>
+	<section id="successContainer" layout="column" layout-align="center center" ng-switch-when="true">
+		<img src="success.png" style="width:100px; height:100px; opacity:0.2;"/>
+		<span style="font-size:18px; width:330px; text-align:center; padding:20px 0px 10px 0px;">You have been successfully registered to 12thDoor.</span>
+            <span style="font-size:16px; width:330px; text-align:center; padding:10px 0px 10px 0px; color:rgb(63,81,181); cursor:pointer;" ng-click="locateUserEmail()">Please check your email to get started.</span>
+    </section>
+</md-card>

@@ -1,0 +1,725 @@
+/*platformentry-styles*/
+
+[ng\:cloak],
+[ng-cloak],
+.ng-cloak {
+    display: none !important;
+}
+md-input-container {
+    margin: 7px !important;
+}
+body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: #235b91;
+}
+#viewContainer {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.commonContentShell {
+    width: 100%;
+    max-width: 750px;
+    height: auto;
+    min-height: 300px;
+    border-radius: 4px;
+    background: #ffffff;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #f2f2f2 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #f2f2f2 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #ffffff 0%, #f2f2f2 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2', GradientType=0);
+    /* IE6-9 */
+}
+.mainIntroNavSection {
+    width: auto;
+}
+.companyLogoContainer {
+    width: 100%;
+    height: 130px;
+}
+.companyLogoContainer img {
+    width: 400px;
+    /*    height: 127px;*/
+}
+.navOptionsContainer {
+    width: 100%;
+    padding: 10px;
+}
+.navText {
+    display: block;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+    text-align: center;
+}
+.createCompanyIntroSection {
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+.joinCompanyIntroSection {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px;
+}
+.cygilHolder {
+    position: absolute;
+    z-index: 10;
+    bottom: 20px;
+    right: 20px;
+    display: block;
+    width: 296px;
+    height: 328px;
+    background: red;
+    background: url(12thDoorCygil_white.png);
+    opacity: 0.1;
+}
+#cygilContainer {
+    width: 250px;
+    background: rgba(218, 201, 199, 0) url('DuoSoftware_Logo.png') no-repeat 170% 100%;
+    background-size: 125%;
+}
+#cygilContainer img {
+    margin-top: 30px;
+    width: 190px;
+    height: 50px;
+}
+#successContainer {
+    width: 100%;
+    padding: 20px 0px 30px 0px;
+}
+#formContainer {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+#formContainer form {
+    width: 100%;
+}
+.md-actions {
+    margin-top: 18px !important;
+}
+.secondaryAction {
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    font-weight: 700;
+}
+.secondaryAction span {
+    display: block;
+    cursor: pointer;
+    padding: 5px 0px 5px 0px;
+}
+.secondaryAction span:nth-child(1) {
+    font-size: 16px;
+    font-weight: normal;
+    color: rgba(150, 150, 150, 1);
+}
+.secondaryAction span i {
+    color: rgb(63, 81, 181);
+}
+.secondaryAction span:nth-child(2) {
+    color: #FF4081;
+}
+.socialActions {
+    width: 100%;
+    height: auto;
+}
+.loadInidcatorContainer {
+    height: 100px;
+    width: auto;
+}
+.loadInidcatorContainer span {
+    margin-right: 30px;
+    color: rgba(150, 150, 150, 1);
+}
+
+/*entry page slider styles - start*/
+
+.slide {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.bg {
+    position: absolute;
+    top: 0px;
+}
+.bg-cover {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.4) url("bgDots2.png");
+    background-repeat: repeat;
+}
+.xlarge {
+    position: absolute;
+    z-index: 2;
+    bottom: 50px;
+    font-size: 200px;
+    color: #FFF;
+    /* Fallback for older browsers */
+    color: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    font-weight: 300 !important;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.subtitle {
+    position: absolute;
+    bottom: 100px;
+    font-size: 100px;
+    font-weight: 300 !important;
+    color: #FFF;
+    width: 100%;
+    z-index: 3;
+}
+
+/*entry page slider styles - end*/
+
+
+/*Transition Animations*/
+
+#viewContainer.ng-enter {
+    z-index: 8888;
+}
+#viewContainer.ng-leave {
+    z-index: 9999;
+}
+#viewContainer.ng-enter {
+    -webkit-animation: scaleUp .7s cubic-bezier(.55, 0, .1, 1);
+    animation: scaleUp .7s cubic-bezier(.55, 0, .1, 1);
+}
+#viewContainer.ng-leave {
+    -webkit-animation: scaleDown .7s cubic-bezier(.55, 0, .1, 1);
+    animation: scaleDown .7s cubic-bezier(.55, 0, .1, 1);
+}
+.animate-enter,
+.animate-leave {
+    -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+}
+.animate-enter {
+    top: -100%;
+}
+.animate-enter.animate-enter-active {
+    top: 0;
+}
+.animate-leave {
+    top: 0;
+}
+.animate-leave.animate-leave-active {
+    top: 100%;
+}
+
+/*Animation Hooks*/
+
+@-webkit-keyframes scaleDown {
+    from {}
+    to {
+        opacity: 0;
+        -webkit-transform: scale(.8);
+    }
+}
+@keyframes scaleDown {
+    from {}
+    to {
+        opacity: 0;
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
+    }
+}
+@-webkit-keyframes scaleUp {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(.8);
+    }
+}
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
+    }
+}
+#dw-loadingFrame {
+    position: absolute;
+    /*    z-index: 10;*/
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(215deg, #1e568f, #eb99bd, #0089ca, #bd4a8c);
+    background-size: 800% 800%;
+    overflow: hidden;
+    -webkit-animation: loaderFrameBG 31s ease infinite;
+    -moz-animation: loaderFrameBG 31s ease infinite;
+    animation: loaderFrameBG 31s ease infinite;
+}
+@-webkit-keyframes loaderFrameBG {
+    0% {
+        background-position: 94% 0%
+    }
+    50% {
+        background-position: 7% 100%
+    }
+    100% {
+        background-position: 94% 0%
+    }
+}
+@-moz-keyframes loaderFrameBG {
+    0% {
+        background-position: 94% 0%
+    }
+    50% {
+        background-position: 7% 100%
+    }
+    100% {
+        background-position: 94% 0%
+    }
+}
+@keyframes loaderFrameBG {
+    0% {
+        background-position: 94% 0%
+    }
+    50% {
+        background-position: 7% 100%
+    }
+    100% {
+        background-position: 94% 0%
+    }
+}
+
+/* line 1, ../../source/scss/ng-img-crop.scss */
+
+img-crop {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+/* line 7, ../../source/scss/ng-img-crop.scss */
+
+img-crop canvas {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    /* mobile webkit */
+}
+
+/* line 17, ../../source/scss/ng-img-crop.scss */
+
+img-crop .loading {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: absolute;
+}
+body {
+    /*        color: white;*/
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+}
+.main-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: white;
+}
+.step2-main-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: white;
+}
+.step1-main-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #03A9F4;
+    background-image: url(../images/cover1.jpg);
+    background-blend-mode: multiply;
+    background-size: 100vw 130vh;
+}
+.title-container {
+    width: 100vw;
+    height: 30vh;
+    background: linear-gradient(215deg, #1e568f, #eb99bd, #0089ca, #bd4a8c);
+    background-size: 800% 800%;
+    overflow: hidden;
+    -webkit-animation: loaderFrameBG 31s ease infinite;
+    -moz-animation: loaderFrameBG 31s ease infinite;
+    animation: loaderFrameBG 31s ease infinite;
+}
+.title-container-content {
+    height: calc(80vh - 48px);
+    width: 100%;
+    font-size: 35px;
+    font-weight: 300;
+    color: whitesmoke;
+}
+.title-container p {
+    /*        margin: 10px 20px;*/
+}
+.title {
+    /*
+        height: 48px;
+        border-bottom: 1px rgba(244, 241, 241, 0.38) solid;
+*/
+    margin: 20px;
+}
+.content {
+    background-color: rgba(244, 241, 241, 0);
+    margin-top: -48px;
+    height: 80vh;
+    z-index: 1;
+}
+md-tabs md-tab-item span {
+    color: white;
+}
+.view {
+    width: 67.2vw;
+    height: 80vh;
+    position: fixed;
+    left: 40vw;
+    top: 20vh;
+    background-image: url(../images/shellassets/background/250x250_blur-background10.jpg);
+    background-size: cover;
+    z-index: 11;
+    transform: scale(0.78);
+    transform-origin: top left;
+    border-radius: 5px;
+    margin: 0vh 13.7vw;
+}
+.mobileView {
+    width: 31.3vw;
+    height: 60vw;
+    position: fixed;
+    right: 12.8vw;
+    top: 28vh;
+    background-image: url(../images/shellassets/background/250x250_blur-background10.jpg);
+    background-size: cover;
+    z-index: 11;
+    transform: scale(0.78);
+    transform-origin: top right;
+    border-radius: 5px;
+    margin: 0vh 0vw;
+}
+.frame {
+    position: fixed;
+    top: 15vh;
+    width: 80vw;
+    height: 80vh;
+    right: -20vw;
+    /*        z-index: 10;*/
+}
+.mobileFrame {
+    position: fixed;
+    top: 15vh;
+    width: 40vw;
+    height: 60vw;
+    right: 5vw;
+    z-index: 10;
+}
+.wizard-content {
+    width: 45vw;
+    height: 60vh;
+    font-size: 25px;
+    color: darkgrey;
+}
+.tool-bar-control-set md-input-container input {
+    color: rgba(255, 255, 255, 1) !important;
+    border: none !important;
+}
+.tool-bar-control-set {
+    height: 100%;
+    padding: 0px 8px 0px 8px;
+    box-sizing: border-box;
+}
+.md-button {
+    margin: 0px !important;
+    min-width: 0 !important;
+}
+.title-container-content .md-input {
+    height: 80px;
+    color: white;
+    font-size: 60px;
+}
+.color-palet {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    margin: 5px;
+}
+.design-view {
+    height: calc(80vh - 48px);
+    width: 100%;
+    background: #ececec;
+}
+.design-view-layer2 {
+    height: calc(300px - 48px);
+    width: 100%;
+}
+.design-view-layer3 {
+    height: calc(300px - 48px);
+    width: 100%;
+    position: absolute;
+    top: 96px;
+    background: rgba(0, 0, 0, 0.3);
+}
+.design-view-layer4 {
+    height: 60vh;
+    width: 80%;
+    max-width: 928px;
+    left: 10%;
+    position: absolute;
+    top: 105px;
+    background: white;
+}
+md-toolbar {
+    -webkit-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .25);
+    -moz-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .25);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .25);
+}
+.branding-title-preview {
+    font-family: Lobster;
+    font-size: 50px;
+    width: 100%;
+    text-align: center;
+    color: #03A9F4;
+}
+.background-thumb {
+    width: 100px;
+    height: 60px;
+}
+img-crop {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden
+}
+img-crop canvas {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent
+}
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width: 500px;
+    height: 300px;
+}
+.logo-button {
+    position: absolute;
+    z-index: 1;
+    left: 5vw;
+}
+.tabs-content-container {
+    width: 100vw;
+    max-width: 700px;
+    z-index: 1;
+    /*        margin: 0px 40px;*/
+    background: none;
+    height: 70vh;
+}
+.tabs-content-container md-list {
+    width: 100%;
+}
+.backdrop {
+    width: 100vw;
+    height: 100vh;
+    visibility: hidden;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 1;
+}
+
+/*start of seacrh bar*/
+
+.serachBox {
+    width: 350px;
+    height: 48px;
+}
+.serachBox.ng-hide-add,
+.serachBox.ng-hide-remove {
+    -webkit-transition: all 350ms cubic-bezier(.55, 0, .1, 1);
+    /* older webkit */
+    -webkit-transition: all 350ms cubic-bezier(.55, 0, .1, 1);
+    -moz-transition: all 350ms cubic-bezier(.55, 0, .1, 1);
+    -o-transition: all 350ms cubic-bezier(.55, 0, .1, 1);
+    transition: all 350ms cubic-bezier(.55, 0, .1, 1);
+}
+.serachBox.ng-hide {
+    width: 0px;
+}
+.serachBox md-input-container {
+    margin-top: 8px !important;
+    padding-bottom: 2px !important;
+}
+.serachBox input {
+    border-bottom: none !important;
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 16px;
+    color: rgb(35, 91, 145);
+}
+.noResultsText {
+    width: 100vw;
+    text-align: center;
+    margin: 50px;
+    color: whitesmoke;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+/*end of search bar*/
+
+
+/*profileWidget Component styling */
+
+.userInfoProfileBannerSection {
+    width: 304px;
+    height: 120px;
+    background-size: 100% 100%;
+}
+#profilePic {
+    position: absolute;
+    z-index: 1;
+    top: 25px;
+    left: 107px;
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.6);
+}
+.userInfoProfileDetailsSection {
+    /*    position: absolute;*/
+    z-index: 1;
+    /*    bottom: 68px;*/
+    /*    left: 0;*/
+    /*    width: 304px;*/
+    height: 60px;
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(30, 30, 30, 0.8);
+}
+.userInfoProfileDetailsSection span:nth-child(1) {
+    color: rgba(255, 255, 255, 1);
+    font-size: 24px;
+}
+.userInfoProfileDetailsSection span:nth-child(2) {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+.profileWidgetControls {
+    width: 100%;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/*Profile widget component styling end*/
+
+.md-open-menu-container.md-active {
+    transform: scale(0.7)
+}
+ks-swiper-container {
+    width: 100%;
+}
+.swiper-container {
+    height: calc(80vh - 48px);
+    width: 100%;
+}
+.dockPanels {
+    height: 100%;
+    width: 100%;
+}
+.panelTitleHolder {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: block;
+    z-index: 0;
+}
+.panelTitleHolder h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 5vw;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.1);
+}
+.sliderPanelContainer {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.step1-wizard-container {
+    width: 100%;
+    max-width: 750px;
+    /*        height: auto;*/
+    min-height: 300px;
+    border-radius: 4px;
+}
+.step-title-1 {
+    font-size: 80px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 10px 5px;
+}
+.step-title-2 {
+    font-size: 20px;
+    margin: 0px;
+    color: rgba(255, 255, 255, 0.6);
+}
+.step-title-2 span {
+    font-size: 40px;
+    margin: 0px;
+    color: white;
+}

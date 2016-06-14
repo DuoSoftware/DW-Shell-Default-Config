@@ -1,0 +1,35 @@
+<div layout="row" layout="space-around center" style="width:70%">
+
+    <md-card flex class="md-whiteframe-12dp" ng-repeat="plan in companyPricePlans" ng-class="{selected: $index == selectedCard}">
+
+        <center style="background: #3f51b5;
+    padding: 30px;
+    color: lightgrey;
+    font-size: 20px;">
+
+            <span style="color:white;font-size:65px;font-weight:300;"><div ng-if="plan.price == '0'">Free <span style="color:white;font-size:20px;">{{plan.per}}</span></div>
+<div ng-if="plan.price != '0'">$ {{plan.price}} <span style="color:white;font-size:20px;">{{plan.per}}</span></div>
+</span>
+
+
+<p>{{plan.name}}</p>
+</center>
+
+<md-card-content layout="column" layout-align="center center" style="color: rgb(105, 99, 99);
+    font-size: 17px;">
+    <p layout="row">{{plan.numberOfUsers }} <span ng-if="plan.numberOfUsers == '1'">&nbspUser</span><span ng-if="plan.numberOfUsers != '1'">&nbspUsers</span></p>
+    <p>{{plan.numberOfApps}} Apps</p>
+    <p>{{plan.storage}} of Storage</p>
+
+</md-card-content>
+<md-card-content layout="column" layout-align="center center">
+    <b>Additional Storage:</b>
+    <p>25 GB/Month: 4.99</p>
+    <p>100 GB/Month: 9.99</p>
+    <p>1 TB/Month: 24.99</p>
+    <md-button class="md-raised md-primary" style="width:100%" type="submit"><span class="loginBtnLabel" ng-click="showStep(3)">select plan</span></md-button>
+</md-card-content>
+
+
+</md-card>
+</div>
