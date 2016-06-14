@@ -125,7 +125,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
 
         $http({
                 method: 'POST',
-                url: 'http://developer.duoworld.com/apis/usertenant/tenant/',
+                url: '/apis/usertenant/tenant/',
                 headers: {
                     'Content-Type': 'application/json'
                 },
