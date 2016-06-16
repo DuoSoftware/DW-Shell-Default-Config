@@ -6,18 +6,20 @@
                 <p class="step-title-2">step
                     <br><span>Shell Customization</span></p>
             </div>
-            <md-input-container style="font-size: 15px;
-    width: 200px;" hide-xs hide-sm>
-                <label>Change preview Device</label>
-                <md-select ng-model="device">
-                    <md-option value="desktop">
-                        Desktop
-                    </md-option>
-                    <md-option value="mobile">
-                        Mobile
-                    </md-option>
-                </md-select>
-            </md-input-container>
+<!--
+           <md-input-container style="font-size: 15px;
+    width: 200px;" hide-xs hide-sm hide-md>
+    <label>Change preview Device</label>
+    <md-select ng-model="device">
+        <md-option value="desktop">
+            Desktop
+        </md-option>
+        <md-option value="mobile">
+            Mobile
+        </md-option>
+    </md-select>
+</md-input-container>
+-->
         </div>
     </div>
 
@@ -70,8 +72,7 @@
             <md-tab label="Background">
                 <md-content flex="45" flex-sm="100" flex-xs="100" class="md-padding tabs-content-container" layout="column" layout-align="space-between center">
 
-
-                    <md-button ng-click="selectShellBackground()" ng-if="myImage == ''" class="logo-button">
+                    <md-button ng-click="selectShellBackground()" class="logo-button">
                         <div layout="column" layout-align="center center" style="border: 2px dashed #E4E4E4; width:100%;height:5vh;">
                             <p>Click here to Upload Background</p>
                         </div>
@@ -157,10 +158,12 @@
                     </md-list>
                     <div layout="row" layout-align="center center">
                         <md-button ng-click="configIndex = configIndex - 1;state = 'transitions';" class="md-primary">Previous</md-button>
-                        <md-button ng-click="configIndex = configIndex + 1;state = 'applications';" class="md-primary">Next</md-button>
+                        <!--                        <md-button ng-click="configIndex = configIndex + 1;state = 'applications';" class="md-primary">Next</md-button>-->
+                        <md-button ng-click="finish($event)" class="md-primary">Finish</md-button>
                     </div>
                 </md-content>
             </md-tab>
+            <!--
             <md-tab label="Applications">
                 <md-content flex="45" class="md-padding tabs-content-container" layout="column" layout-align="start center">
                     <md-list>
@@ -188,16 +191,17 @@
                     </div>
                 </md-content>
             </md-tab>
+-->
         </md-tabs>
     </md-content>
 
-    <div hide-xs hide-sm hide-md class="view" style="background-image:url({{config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl}})" ng-if="device !== 'mobile'">
+    <div hide-xs hide-sm hide-md hide-lg class="view" style="background-image:url({{config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl}})" ng-if="device !== 'mobile'">
         <ng-include src="'shellView.html'"></ng-include>
     </div>
-    <div hide-xs hide-sm hide-md class="mobileView" style="background-image:url({{config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl}})" ng-if="device == 'mobile'">
+    <div hide-xs hide-sm hide-md hide-gt-lg class="mobileView" style="background-image:url({{config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl}})">
         <ng-include src="'shellMobileView.html'"></ng-include>
     </div>
-    <img hide-xs hide-sm hide-md src="images/frame.png" class="frame" ng-if="device !== 'mobile'">
-    <img hide-xs hide-sm hide-md src="images/phone-frame.png" class="mobileFrame" ng-if="device == 'mobile'">
+    <img hide-xs hide-sm hide-md hide-lg src="images/frame.png" class="frame" ng-if="device !== 'mobile'">
+    <img hide-xs hide-sm hide-md hide-gt-lg src="images/phone-frame.png" class="mobileFrame">
 
 </div>

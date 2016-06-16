@@ -435,10 +435,10 @@ md-tabs md-tab-item span {
 }
 .mobileView {
     width: 31.3vw;
-    height: 60vw;
+    height: 58vw;
     position: fixed;
-    right: 12.8vw;
-    top: 28vh;
+    right: 7.8vw;
+    top: calc(15vh + 7vw);
     background-image: url(../images/shellassets/background/250x250_blur-background10.jpg);
     background-size: cover;
     z-index: 11;
@@ -460,7 +460,7 @@ md-tabs md-tab-item span {
     top: 15vh;
     width: 40vw;
     height: 60vw;
-    right: 5vw;
+    right: 0vw;
     z-index: 10;
 }
 .wizard-content {

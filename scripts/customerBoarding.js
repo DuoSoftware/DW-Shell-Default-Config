@@ -121,7 +121,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
 
         console.log(payload);
 
-        displaycreateCompanyDetailsSubmissionProgress();
+        displaycreateCompanyDetailsSubmissionProgress('Submitting your company details, please wait...');
 
         $http({
                 method: 'POST',
@@ -162,7 +162,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                 $scope.submitCreateCompanyDetails();
             } else {
 
-                displaycreateCompanyDetailsSubmissionProgress();
+                displaycreateCompanyDetailsSubmissionProgress('Submitting your company details, please wait...');
                 $charge.payment().getAccounts().success(function (data) { //check for payment methods
                     $mdDialog.hide();
                     if (Array.isArray(data) && data.length > 0)
@@ -245,13 +245,13 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         );
     };
 
-    var displaycreateCompanyDetailsSubmissionProgress = function () {
+    var displaycreateCompanyDetailsSubmissionProgress = function (a) {
         $mdDialog.show({
             template: '<md-dialog ng-cloak>' +
                 '   <md-dialog-content>' +
                 '       <div style="height:auto; width:auto; padding:10px;" class="loadInidcatorContainer" layout="row" layout-align="start center">' +
                 '           <md-progress-circular class="md-primary" md-mode="indeterminate" md-diameter="40"></md-progress-circular>' +
-                '           <span>Submitting your company details, please wait...</span>' +
+                '           <span>' + a + '</span>' +
                 '       </div>' +
                 '   </md-dialog-content>' +
                 '</md-dialog>',
@@ -625,7 +625,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         $apps.getAppsForUser();
     };
 
-    getAllApps();
+    //getAllApps();
 
     $scope.myImage = '';
     $scope.myCroppedImage = "images/tennantassets/customizedlogo_white.png";
@@ -663,17 +663,20 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         if ($scope.myCroppedImage === "images/tennantassets/customizedlogo_white.png") {
             $scope.configIndex = $scope.configIndex + 1
         } else {
+            displaycreateCompanyDetailsSubmissionProgress("Uploading Company Logo, Please wait...");
             var myblob = dataURItoBlob($scope.myCroppedImage);
             var file = blobToFile(myblob, "logo");
             console.log(file);
             $uploader.onSuccess(function () {
-                console.log("logo uploaded successfully");
+                $mdDialog.hide();
+                // console.log("logo uploaded successfully");
                 $scope.configIndex = $scope.configIndex + 1
                     //return true;
-                $scope.config.companyConfiguration.logo = "/apis/media/tenant/companylogo/ogo.jpg";
+                $scope.config.companyConfiguration.logo = "/apis/media/tenant/companylogo/logo.jpg";
             });
             $uploader.onError(function () {
-                console.log("logo upload failed");
+                $mdDialog.hide();
+                // console.log("logo upload failed");
                 var confirm = $mdDialog.confirm()
                     .title('Something went wrong!')
                     .textContent('couldnt upload the company logo')
@@ -699,13 +702,16 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         if ($scope.shellBackground === "") {
             $scope.configIndex = $scope.configIndex + 1
         } else {
+            displaycreateCompanyDetailsSubmissionProgress("Uploading Shell Background, Please wait...");
             $uploader.onSuccess(function () {
+                $mdDialog.hide();
                 console.log("background uploaded successfully");
                 $scope.configIndex = $scope.configIndex + 1
                     //return true;
                 $scope.config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl = "/apis/media/tenant/shellConfigWallpapers/background.jpg";
             });
             $uploader.onError(function () {
+                $mdDialog.hide();
                 console.log("background upload failed");
                 $mdDialog.show(
                     $mdDialog.alert()
@@ -751,20 +757,9 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         });
     }
 
-    function uploadBackground(file) {
-        $uploader.onSuccess(function () {
-            console.log("background uploaded successfully");
-            return true;
-        });
-        $uploader.onError(function () {
-            console.log("background upload failed");
-            return false;
-        });
-        $uploader.uploadUserMedia("shellbackground", file, "background.jpg");
-    };
-
     $scope.finish = function (ev) {
         //$scope.config.defaultAppConfiguration = $scope.selected;
+        displaycreateCompanyDetailsSubmissionProgress("Setting up your Shell, Please wait...");
         $scope.config.tenantId = $rootScope.TenantID;
         console.log($scope.config);
         $http({
@@ -805,34 +800,34 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
 
     };
 
-    $scope.selected = [];
-    $scope.config.defaultAppConfiguration = $scope.selected;
-    $scope.toggle = function (item, list) {
-        var idx = list.indexOf(item);
-        if (idx > -1) {
-            list.splice(idx, 1);
-        } else {
-            list.push(item);
-        }
-    };
-    $scope.exists = function (item, list) {
-        return list.indexOf(item) > -1;
-    };
-    $scope.isIndeterminate = function () {
-        return ($scope.selected.length !== 0 &&
-            $scope.selected.length !== $scope.apps.length);
-    };
-    $scope.isChecked = function () {
-        return $scope.selected.length === $scope.apps.length;
-    };
-    $scope.toggleAll = function () {
-        if ($scope.selected.length === $scope.apps.length) {
-            $scope.selected = [];
-        } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
-            $scope.selected = $scope.apps.slice(0);
-        }
-        $scope.config.defaultAppConfiguration = $scope.selected;
-    };
+    //    $scope.selected = [];
+    //    $scope.config.defaultAppConfiguration = $scope.selected;
+    //    $scope.toggle = function (item, list) {
+    //        var idx = list.indexOf(item);
+    //        if (idx > -1) {
+    //            list.splice(idx, 1);
+    //        } else {
+    //            list.push(item);
+    //        }
+    //    };
+    //    $scope.exists = function (item, list) {
+    //        return list.indexOf(item) > -1;
+    //    };
+    //    $scope.isIndeterminate = function () {
+    //        return ($scope.selected.length !== 0 &&
+    //            $scope.selected.length !== $scope.apps.length);
+    //    };
+    //    $scope.isChecked = function () {
+    //        return $scope.selected.length === $scope.apps.length;
+    //    };
+    //    $scope.toggleAll = function () {
+    //        if ($scope.selected.length === $scope.apps.length) {
+    //            $scope.selected = [];
+    //        } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+    //            $scope.selected = $scope.apps.slice(0);
+    //        }
+    //        $scope.config.defaultAppConfiguration = $scope.selected;
+    //    };
 
     $scope.showStep = function (a) {
         $state.go('step' + a);
