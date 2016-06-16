@@ -6,7 +6,7 @@
                 <p class="step-title-2">step
                     <br><span>Shell Customization</span></p>
             </div>
-<!--
+            <!--
            <md-input-container style="font-size: 15px;
     width: 200px;" hide-xs hide-sm hide-md>
     <label>Change preview Device</label>
@@ -195,13 +195,13 @@
         </md-tabs>
     </md-content>
 
-    <div hide-xs hide-sm hide-md hide-lg class="view" style="background-image:url({{config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl}})" ng-if="device !== 'mobile'">
+    <div hide-xs hide-sm hide-md class="view" style="background-image:url({{config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl}})" ng-if="device !== 'mobile'">
         <ng-include src="'shellView.html'"></ng-include>
     </div>
-    <div hide-xs hide-sm hide-md hide-gt-lg class="mobileView" style="background-image:url({{config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl}})">
+    <div hide-xs hide-sm hide-gt-md class="mobileView" style="background-image:url({{config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl}})">
         <ng-include src="'shellMobileView.html'"></ng-include>
     </div>
-    <img hide-xs hide-sm hide-md hide-lg src="images/frame.png" class="frame" ng-if="device !== 'mobile'">
-    <img hide-xs hide-sm hide-md hide-gt-lg src="images/phone-frame.png" class="mobileFrame">
+    <img hide-xs hide-sm hide-md src="images/frame.png" class="frame" ng-if="device !== 'mobile'">
+    <img hide-xs hide-sm hide-gt-md src="images/phone-frame.png" class="mobileFrame">
 
 </div>
