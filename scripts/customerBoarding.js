@@ -229,7 +229,11 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     };
 
     var defaultDataInjection = function (data) {
-        data.TenantID = data.TenantID + "." + $scope.hostedDomain;
+        if (data.TenantType === "Compnay") {
+            data.TenantID = data.TenantID + "." + $scope.hostedDomain;
+        } else {
+            data.TenantID = data.TenantID + ".dev." + $scope.hostedDomain;
+        };
         return data;
     };
 
