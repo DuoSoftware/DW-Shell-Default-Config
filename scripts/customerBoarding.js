@@ -114,11 +114,19 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
 
     };
 
+    $scope.$watch("createCompanyDetails.TenantType", function () {
+        if ($scope.createCompanyDetails.TenantType === "Developer") {
+            $scope.hostedDomain = ".dev." + $scope.hostedDomain;
+        } else {
+            $scope.hostedDomain = $window.location.host;
+        }
+    });
+
     $scope.submitCreateCompanyDetails = function () {
         console.log($rootScope.createCompanyDetails);
 
-        var payload = angular.toJson(defaultDataInjection($rootScope.createCompanyDetails));
-
+        //var payload = angular.toJson(defaultDataInjection($rootScope.createCompanyDetails));
+        var payload = $rootScope.createCompanyDetails;
         console.log(payload);
 
         displaycreateCompanyDetailsSubmissionProgress('Submitting your company details, please wait...');

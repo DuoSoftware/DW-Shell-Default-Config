@@ -13,9 +13,12 @@
             </md-input-container>
             <div layout="row">
                 <md-input-container md-no-float class="md-block" flex="70">
-                    <input required id="companyDomain" type="text" name="companyDomain" placeholder="company domain" ng-model="createCompanyDetails.TenantID">
+                    <input required id="companyDomain" type="text" name="companyDomain" placeholder="company domain" ng-model="createCompanyDetails.TenantID" ng-pattern="/^\S*$/">
                     <div ng-messages="createCompanyForm.companyDomain.$error">
                         <div ng-message="required">a valid company domain name is required.</div>
+                        <div ng-message="pattern">
+                            Tenant name cannot contain whitespaces.
+                        </div>
                     </div>
                 </md-input-container>
                 <md-input-container md-no-float class="md-block" flex="30">
@@ -38,7 +41,7 @@
                     </md-optgroup>
                 </md-select>
             </md-input-container>
-            
+
             <md-input-container md-no-float class="md-block" flex style="margin-top:36px !important; margin-bottom:46px !important; ">
                 <md-select name="companyLocation" placeholder="company location" ng-model="createCompanyDetails.OtherData.CompanyLocation" md-on-open="loadLocations()">
                     <md-option ng-repeat="location in companyLocation" ng-value="location.countryName">{{location.countryName}}</md-option>
