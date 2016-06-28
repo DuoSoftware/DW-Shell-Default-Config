@@ -5,53 +5,67 @@
     </section>
     <section id="formContainer" flex layout="column" layout-align="center center" ng-switch-when="false" style="padding:10px;">
         <form name="createCompanyForm" ng-submit="showPlans()" autocomplete="off">
-            <md-input-container md-no-float class="md-block" flex>
-                <input required id="companyName" type="text" name="companyName" placeholder="company name" ng-model="createCompanyDetails.Name">
+            <md-input-container class="md-block">
+                <label>Tenant Name</label>
+                <input required id="companyName" type="text" name="companyName" ng-model="createCompanyDetails.Name">
                 <div ng-messages="createCompanyForm.companyName.$error">
                     <div ng-message="required">a valid company name is required.</div>
                 </div>
             </md-input-container>
-            <div layout="row">
-                <md-input-container md-no-float class="md-block" flex="70">
-                    <input required id="companyDomain" type="text" name="companyDomain" placeholder="company domain" ng-model="createCompanyDetails.TenantID" ng-pattern="/^\S*$/">
-                    <div ng-messages="createCompanyForm.companyDomain.$error">
-                        <div ng-message="required">a valid company domain name is required.</div>
-                        <div ng-message="pattern">
-                            Tenant name cannot contain whitespaces.
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container md-no-float class="md-block" flex="30">
-                    <input disabled id="domainPostfix" type="text" name="companyDomainPostFix" placeholder=".DuoWorld.com" ng-model="hostedDomain">
-                </md-input-container>
-            </div>
-            <md-input-container md-no-float class="md-block" flex>
-                <md-select name="businessType" placeholder="business type" ng-model="createCompanyDetails.OtherData.CompanyType" md-on-open="loadBusinessType()">
-                    <md-option ng-value="bizType.businessName" ng-repeat="bizType in businessType">{{bizType.businessName}}</md-option>
-                </md-select>
-                <div class="errors" ng-messages="businessType.$error" ng-if="createCompanyForm.$dirty">
-                    <div ng-message="required">Please select a business type.</div>
-                </div>
-            </md-input-container>
-            <md-input-container md-no-float class="md-block" flex-gt-sm style="margin-top:36px !important;">
-                <md-select placeholder="Tenant Type" ng-model="createCompanyDetails.TenantType">
+            <md-input-container class="md-block" style="height: 48px;
+    margin-bottom: 0px;">
+                <label>Tenant Type</label>
+                <md-select ng-model="createCompanyDetails.TenantType">
                     <md-optgroup label="Select Tenant Type">
                         <md-option value="Developer" flex>Developer</md-option>
                         <md-option value="Company" flex>Company</md-option>
                     </md-optgroup>
                 </md-select>
             </md-input-container>
+            <div layout="row">
+                <md-input-container class="md-block" flex="65" style="margin-bottom:0px;">
+                    <label>Tenant Domain</label>
+                    <input required id="companyDomain" type="text" name="companyDomain" ng-model="createCompanyDetails.TenantID" ng-pattern="/^\S*$/" availability="{{hostedDomain}}">
+                    <div class="hint" ng-if="createCompanyForm.companyDomain.$dirty && createCompanyForm.companyDomain.$valid">Tenant name available</div>
+                    <div ng-messages="createCompanyForm.companyDomain.$error">
 
-            <md-input-container md-no-float class="md-block" flex style="margin-top:36px !important; margin-bottom:46px !important; ">
-                <md-select name="companyLocation" placeholder="company location" ng-model="createCompanyDetails.OtherData.CompanyLocation" md-on-open="loadLocations()">
-                    <md-option ng-repeat="location in companyLocation" ng-value="location.countryName">{{location.countryName}}</md-option>
+                        <div ng-message="required">a valid company domain name is required.</div>
+                        <div ng-message="pattern">
+                            Tenant name cannot contain whitespaces.
+                        </div>
+                        <div ng-message="availability">
+                            Tenant name already taken.
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container md-no-float class="md-block" flex="35" style="margin-bottom:0px;">
+                    <input disabled id="domainPostfix" type="text" name="companyDomainPostFix" placeholder=".DuoWorld.com" ng-model="hostedDomain">
+                </md-input-container>
+            </div>
+            <md-input-container class="md-block" style="height: 48px;
+    margin-bottom: 0px;">
+                <label>Business Type</label>
+                <md-select name="BusinessType" ng-model="createCompanyDetails.OtherData.CompanyType" md-on-open="loadBusinessType()">
+                    <md-option ng-value="bizType.businessName" ng-repeat="bizType in businessType">{{bizType.businessName}}</md-option>
                 </md-select>
-                <div class="errors" ng-messages="companyLocation.$error" ng-if="createCompanyForm.$dirty">
-                    <div ng-message="required">Please select a company location.</div>
+                <div class="errors" ng-messages="businessType.$error" ng-if="createCompanyForm.$dirty">
+                    <div ng-message="required">Please select a business type.</div>
                 </div>
             </md-input-container>
+
+
+            <md-autocomplete required md-input-name="autocompleteField" md-input-minlength="1" md-input-maxlength="28" md-selected-item="country.selectedItem" md-search-text="country.searchText" md-items="item in country.querySearch(country.searchText)" md-item-text="item.display" md-floating-label="Country" md-selected-item-change="country.selectedItemChange(item)" style="height: 60px;">
+                <md-item-template>
+                    <span md-highlight-text="country.searchText">{{item.display}}</span>
+                </md-item-template>
+                <div ng-messages="createCompanyForm.autocompleteField.$error" ng-if="createCompanyForm.autocompleteField.$touched">
+                    <div ng-message="required">You <b>must</b> have a country.</div>
+                    <div ng-message="minlength">Your entry is not long enough.</div>
+                    <div ng-message="maxlength">Your entry is too long.</div>
+                </div>
+            </md-autocomplete>
             <div class="md-actions" layout="column" layout-align="center center">
-                <md-button class="md-raised md-primary" style="width:100%" type="submit"><span class="loginBtnLabel">Create Tenant</span></md-button>
+                <md-button ng-disabled="!createCompanyForm.$valid" class="md-raised md-primary" style="width:100%" type="submit"><span class="loginBtnLabel">Create Tenant</span></md-button>
             </div>
         </form>
     </section>
