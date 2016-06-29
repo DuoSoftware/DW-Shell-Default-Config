@@ -78,8 +78,9 @@ body {
 }
 
 .createCompanyIntroSection {
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    /*    border-right: 1px solid rgba(0, 0, 0, 0.1);*/
     padding: 10px;
+    max-width: 300px;
 }
 
 .joinCompanyIntroSection {
@@ -102,7 +103,7 @@ body {
 
 #cygilContainer {
     width: 250px;
-    background: rgba(218, 201, 199, 0) url('DuoSoftware_Logo.png') no-repeat 170% 100%;
+    background: rgba(218, 201, 199, 0) url('DuoSoftware_Logo.png') no-repeat 170% 120%;
     background-size: 125%;
 }
 
