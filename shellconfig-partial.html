@@ -30,12 +30,12 @@
 
                     <input class="btn btn-default btn-lg" type="file" id="fileInput" style="visibility: hidden;" onchange="angular.element(this).scope().handleFileSelect(event)" />
                     <md-button ng-click="uploadLogo()" ng-if="myImage == ''" class="logo-button">
-                        <div class="cropArea" layout="column" layout-align="center center" style="border: 2px dashed #E4E4E4;">
+                        <div class="cropArea" layout="column" layout-align="center center" style="border: 2px dashed #E4E4E4;"><img src="images/upload.png">
                             <p>Click here to Upload Logo</p>
                         </div>
                     </md-button>
                     <div class="cropArea">
-                        <img-crop image="myImage" area-type="rectangle" result-image="myCroppedImage" result-image-size="{w: 160, h: 42}" area-min-size="{w:selectedOption.value.w, h: selectedOption.value.h}" init-max-area="true"></img-crop>
+                        <img-crop image="myImage" area-type="rectangle" result-image="myCroppedImage" result-image-size="{w: 160, h: 42}" area-min-size="{w:selectedOption.value.w, h: selectedOption.value.h}" init-max-area="false" aspect-ratio="3.8"></img-crop>
                     </div>
 
                     <div layout="row" layout-align="center center">

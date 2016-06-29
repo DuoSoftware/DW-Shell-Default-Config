@@ -5,9 +5,11 @@
 .ng-cloak {
     display: none !important;
 }
+
 md-input-container {
-    margin: 7px !important;
+    /*    margin: 7px !important;*/
 }
+
 body {
     position: absolute;
     top: 0;
@@ -17,7 +19,9 @@ body {
     width: 100%;
     overflow: hidden;
     background: #235b91;
+    font-family: 'Roboto', sans-serif;
 }
+
 #viewContainer {
     position: absolute;
     z-index: 5;
@@ -27,6 +31,7 @@ body {
     height: 100%;
     overflow: hidden;
 }
+
 .commonContentShell {
     width: 100%;
     max-width: 750px;
@@ -44,21 +49,26 @@ body {
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2', GradientType=0);
     /* IE6-9 */
 }
+
 .mainIntroNavSection {
     width: auto;
 }
+
 .companyLogoContainer {
     width: 100%;
     height: 130px;
 }
+
 .companyLogoContainer img {
     width: 400px;
     /*    height: 127px;*/
 }
+
 .navOptionsContainer {
     width: 100%;
     padding: 10px;
 }
+
 .navText {
     display: block;
     font-size: 18px;
@@ -66,14 +76,17 @@ body {
     margin-bottom: 20px;
     text-align: center;
 }
+
 .createCompanyIntroSection {
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     padding: 10px;
 }
+
 .joinCompanyIntroSection {
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     padding: 10px;
 }
+
 .cygilHolder {
     position: absolute;
     z-index: 10;
@@ -86,66 +99,81 @@ body {
     background: url(12thDoorCygil_white.png);
     opacity: 0.1;
 }
+
 #cygilContainer {
     width: 250px;
     background: rgba(218, 201, 199, 0) url('DuoSoftware_Logo.png') no-repeat 170% 100%;
     background-size: 125%;
 }
+
 #cygilContainer img {
     margin-top: 30px;
     width: 190px;
     height: 50px;
 }
+
 #successContainer {
     width: 100%;
     padding: 20px 0px 30px 0px;
 }
+
 #formContainer {
     padding-top: 5px;
     padding-bottom: 5px;
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
 #formContainer form {
     width: 100%;
 }
+
 .md-actions {
     margin-top: 18px !important;
 }
+
 .secondaryAction {
     width: 100%;
     height: auto;
     font-size: 14px;
     font-weight: 700;
 }
+
 .secondaryAction span {
     display: block;
     cursor: pointer;
     padding: 5px 0px 5px 0px;
 }
+
 .secondaryAction span:nth-child(1) {
     font-size: 16px;
     font-weight: normal;
     color: rgba(150, 150, 150, 1);
 }
+
 .secondaryAction span i {
     color: rgb(63, 81, 181);
 }
+
 .secondaryAction span:nth-child(2) {
     color: #FF4081;
 }
+
 .socialActions {
     width: 100%;
     height: auto;
 }
+
 .loadInidcatorContainer {
     height: 100px;
     width: auto;
 }
+
 .loadInidcatorContainer span {
     margin-right: 30px;
     color: rgba(150, 150, 150, 1);
 }
+
 
 /*entry page slider styles - start*/
 
@@ -157,10 +185,12 @@ body {
     width: 100%;
     height: 100%;
 }
+
 .bg {
     position: absolute;
     top: 0px;
 }
+
 .bg-cover {
     width: 100%;
     height: 100%;
@@ -170,6 +200,7 @@ body {
     background: rgba(0, 0, 0, 0.4) url("bgDots2.png");
     background-repeat: repeat;
 }
+
 .xlarge {
     position: absolute;
     z-index: 2;
@@ -183,6 +214,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
 }
+
 .subtitle {
     position: absolute;
     bottom: 100px;
@@ -193,6 +225,7 @@ body {
     z-index: 3;
 }
 
+
 /*entry page slider styles - end*/
 
 
@@ -201,17 +234,21 @@ body {
 #viewContainer.ng-enter {
     z-index: 8888;
 }
+
 #viewContainer.ng-leave {
     z-index: 9999;
 }
+
 #viewContainer.ng-enter {
     -webkit-animation: scaleUp .7s cubic-bezier(.55, 0, .1, 1);
     animation: scaleUp .7s cubic-bezier(.55, 0, .1, 1);
 }
+
 #viewContainer.ng-leave {
     -webkit-animation: scaleDown .7s cubic-bezier(.55, 0, .1, 1);
     animation: scaleDown .7s cubic-bezier(.55, 0, .1, 1);
 }
+
 .animate-enter,
 .animate-leave {
     -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
@@ -220,18 +257,23 @@ body {
     -o-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
+
 .animate-enter {
     top: -100%;
 }
+
 .animate-enter.animate-enter-active {
     top: 0;
 }
+
 .animate-leave {
     top: 0;
 }
+
 .animate-leave.animate-leave-active {
     top: 100%;
 }
+
 
 /*Animation Hooks*/
 
@@ -242,6 +284,7 @@ body {
         -webkit-transform: scale(.8);
     }
 }
+
 @keyframes scaleDown {
     from {}
     to {
@@ -250,12 +293,14 @@ body {
         transform: scale(.8);
     }
 }
+
 @-webkit-keyframes scaleUp {
     from {
         opacity: 0;
         -webkit-transform: scale(.8);
     }
 }
+
 @keyframes scaleUp {
     from {
         opacity: 0;
@@ -263,6 +308,7 @@ body {
         transform: scale(.8);
     }
 }
+
 #dw-loadingFrame {
     position: absolute;
     /*    z-index: 10;*/
@@ -278,6 +324,7 @@ body {
     -moz-animation: loaderFrameBG 31s ease infinite;
     animation: loaderFrameBG 31s ease infinite;
 }
+
 @-webkit-keyframes loaderFrameBG {
     0% {
         background-position: 94% 0%
@@ -289,6 +336,7 @@ body {
         background-position: 94% 0%
     }
 }
+
 @-moz-keyframes loaderFrameBG {
     0% {
         background-position: 94% 0%
@@ -300,6 +348,7 @@ body {
         background-position: 94% 0%
     }
 }
+
 @keyframes loaderFrameBG {
     0% {
         background-position: 94% 0%
@@ -312,6 +361,7 @@ body {
     }
 }
 
+
 /* line 1, ../../source/scss/ng-img-crop.scss */
 
 img-crop {
@@ -321,6 +371,7 @@ img-crop {
     position: relative;
     overflow: hidden;
 }
+
 
 /* line 7, ../../source/scss/ng-img-crop.scss */
 
@@ -333,6 +384,7 @@ img-crop canvas {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     /* mobile webkit */
 }
+
 
 /* line 17, ../../source/scss/ng-img-crop.scss */
 
@@ -357,23 +409,21 @@ img-crop .loading {
     background-color: rgba(0, 0, 0, 0.75);
     position: absolute;
 }
-body {
-    /*        color: white;*/
-    font-family: 'Roboto', sans-serif;
-    overflow: hidden;
-}
+
 .main-container {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     background-color: white;
 }
+
 .step2-main-container {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
     background-color: white;
 }
+
 .step1-main-container {
     width: 100vw;
     height: 100vh;
@@ -383,6 +433,7 @@ body {
     background-blend-mode: multiply;
     background-size: 100vw 130vh;
 }
+
 .title-container {
     width: 100vw;
     height: 30vh;
@@ -393,6 +444,7 @@ body {
     -moz-animation: loaderFrameBG 31s ease infinite;
     animation: loaderFrameBG 31s ease infinite;
 }
+
 .title-container-content {
     height: calc(80vh - 48px);
     width: 100%;
@@ -400,9 +452,11 @@ body {
     font-weight: 300;
     color: whitesmoke;
 }
+
 .title-container p {
     /*        margin: 10px 20px;*/
 }
+
 .title {
     /*
         height: 48px;
@@ -410,15 +464,18 @@ body {
 */
     margin: 20px;
 }
+
 .content {
     background-color: rgba(244, 241, 241, 0) !important;
     margin-top: -48px;
     height: 80vh;
     z-index: 1;
 }
+
 md-tabs md-tab-item span {
     color: white;
 }
+
 .view {
     width: 67.2vw;
     height: 80vh;
@@ -433,6 +490,7 @@ md-tabs md-tab-item span {
     border-radius: 5px;
     margin: 0vh 13.7vw;
 }
+
 .mobileView {
     width: 31.3vw;
     height: 58vw;
@@ -447,6 +505,7 @@ md-tabs md-tab-item span {
     border-radius: 5px;
     margin: 0vh 0vw;
 }
+
 .frame {
     position: fixed;
     top: 15vh;
@@ -455,6 +514,7 @@ md-tabs md-tab-item span {
     right: -20vw;
     /*        z-index: 10;*/
 }
+
 .mobileFrame {
     position: fixed;
     top: 15vh;
@@ -463,45 +523,54 @@ md-tabs md-tab-item span {
     right: 0vw;
     z-index: 10;
 }
+
 .wizard-content {
     width: 45vw;
     height: 60vh;
     font-size: 25px;
     color: darkgrey;
 }
+
 .tool-bar-control-set md-input-container input {
     color: rgba(255, 255, 255, 1) !important;
     border: none !important;
 }
+
 .tool-bar-control-set {
     height: 100%;
     padding: 0px 8px 0px 8px;
     box-sizing: border-box;
 }
+
 .md-button {
     margin: 0px !important;
     min-width: 0 !important;
 }
+
 .title-container-content .md-input {
     height: 80px;
     color: white;
     font-size: 60px;
 }
+
 .color-palet {
     width: 100px;
     height: 100px;
     /*    border-radius: 100%;*/
     margin: 5px;
 }
+
 .design-view {
     height: calc(80vh - 48px);
     width: 100%;
     background: #ececec;
 }
+
 .design-view-layer2 {
     height: calc(300px - 48px);
     width: 100%;
 }
+
 .design-view-layer3 {
     height: calc(300px - 48px);
     width: 100%;
@@ -509,6 +578,7 @@ md-tabs md-tab-item span {
     top: 96px;
     background: rgba(0, 0, 0, 0.3);
 }
+
 .design-view-layer4 {
     height: 60vh;
     width: 80%;
@@ -518,22 +588,25 @@ md-tabs md-tab-item span {
     top: 105px;
     background: white;
 }
+
 md-toolbar {
     -webkit-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .25);
     -moz-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .25);
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, .25);
 }
+
 .branding-title-preview {
-    font-family: Lobster;
     font-size: 50px;
     width: 100%;
     text-align: center;
     color: #03A9F4;
 }
+
 .background-thumb {
     width: 100px;
     height: 60px;
 }
+
 img-crop {
     width: 100%;
     height: 100%;
@@ -541,6 +614,7 @@ img-crop {
     position: relative;
     overflow: hidden
 }
+
 img-crop canvas {
     display: block;
     position: absolute;
@@ -549,18 +623,21 @@ img-crop canvas {
     outline: 0;
     -webkit-tap-highlight-color: transparent
 }
+
 .cropArea {
     /*background: #E4E4E4;*/
     overflow: hidden;
     width: 100%;
     height: 40vh;
 }
+
 .logo-button {
     position: absolute;
     z-index: 1;
     left: 0vw;
     width: 100%;
 }
+
 .tabs-content-container {
     width: 100vw;
     max-width: 700px;
@@ -569,11 +646,13 @@ img-crop canvas {
     background-color: rgba(0, 255, 255, 0) !important;
     height: 70vh;
 }
+
 .tabs-content-container md-list {
     width: 100%;
     height: 60vh;
     overflow: auto;
 }
+
 .backdrop {
     width: 100vw;
     height: 100vh;
@@ -585,12 +664,14 @@ img-crop canvas {
     z-index: 1;
 }
 
+
 /*start of seacrh bar*/
 
 .serachBox {
     width: 350px;
     height: 48px;
 }
+
 .serachBox.ng-hide-add,
 .serachBox.ng-hide-remove {
     -webkit-transition: all 350ms cubic-bezier(.55, 0, .1, 1);
@@ -600,20 +681,23 @@ img-crop canvas {
     -o-transition: all 350ms cubic-bezier(.55, 0, .1, 1);
     transition: all 350ms cubic-bezier(.55, 0, .1, 1);
 }
+
 .serachBox.ng-hide {
     width: 0px;
 }
+
 .serachBox md-input-container {
     margin-top: 8px !important;
     padding-bottom: 2px !important;
 }
+
 .serachBox input {
     border-bottom: none !important;
-    font-family: roboto;
     font-weight: 300;
     font-size: 16px;
     color: rgb(35, 91, 145);
 }
+
 .noResultsText {
     width: 100vw;
     text-align: center;
@@ -622,6 +706,7 @@ img-crop canvas {
     font-size: 18px;
     font-weight: 300;
 }
+
 
 /*end of search bar*/
 
@@ -633,6 +718,7 @@ img-crop canvas {
     height: 120px;
     background-size: 100% 100%;
 }
+
 #profilePic {
     position: absolute;
     z-index: 1;
@@ -643,6 +729,7 @@ img-crop canvas {
     -moz-box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.6);
     box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.6);
 }
+
 .userInfoProfileDetailsSection {
     /*    position: absolute;*/
     z-index: 1;
@@ -653,36 +740,44 @@ img-crop canvas {
     font-weight: 300;
     text-shadow: 1px 1px 2px rgba(30, 30, 30, 0.8);
 }
+
 .userInfoProfileDetailsSection span:nth-child(1) {
     color: rgba(255, 255, 255, 1);
     font-size: 24px;
 }
+
 .userInfoProfileDetailsSection span:nth-child(2) {
     color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
 }
+
 .profileWidgetControls {
     width: 100%;
     height: 48px;
     background: rgba(255, 255, 255, 0.3);
 }
 
+
 /*Profile widget component styling end*/
 
 .md-open-menu-container.md-active {
     transform: scale(0.7)
 }
+
 ks-swiper-container {
     width: 100%;
 }
+
 .swiper-container {
     height: calc(80vh - 48px);
     width: 100%;
 }
+
 .dockPanels {
     height: 100%;
     width: 100%;
 }
+
 .panelTitleHolder {
     position: absolute;
     bottom: 10px;
@@ -690,6 +785,7 @@ ks-swiper-container {
     display: block;
     z-index: 0;
 }
+
 .panelTitleHolder h1 {
     padding: 0;
     margin: 0;
@@ -697,6 +793,7 @@ ks-swiper-container {
     font-weight: 300;
     color: rgba(255, 255, 255, 0.1);
 }
+
 .sliderPanelContainer {
     position: relative;
     top: 0;
@@ -704,6 +801,7 @@ ks-swiper-container {
     width: 100%;
     height: 100%;
 }
+
 .step1-wizard-container {
     width: 100%;
     max-width: 750px;
@@ -711,21 +809,25 @@ ks-swiper-container {
     min-height: 300px;
     border-radius: 4px;
 }
+
 .step-title-1 {
     font-size: 80px;
     color: rgba(255, 255, 255, 0.6);
     margin: 10px 5px;
 }
+
 .step-title-2 {
     font-size: 20px;
     margin: 0px;
     color: rgba(255, 255, 255, 0.6);
 }
+
 .step-title-2 span {
     font-size: 40px;
     margin: 0px;
     color: white;
 }
+
 .plan-details {
     padding: 20px 30px;
     font-size: 14px;
@@ -735,18 +837,23 @@ ks-swiper-container {
     color: black;
     transition: all 1s cubic-bezier(.55, 0, .1, 1);
 }
+
 .plan-details p {
     margin: 7px;
 }
+
 .personal_space {
     background-color: #0089ca !important;
 }
+
 .mini_team {
     background-color: #1e568f !important;
 }
+
 .world {
     background-color: #bd4a8c !important;
 }
+
 .plan-title {
     color: white;
     font-size: 65px;
@@ -755,6 +862,7 @@ ks-swiper-container {
     margin-bottom: 10px;
     transition: all 1s cubic-bezier(.55, 0, .1, 1);
 }
+
 .plan-card {
     color: white;
     font-size: 17px;
@@ -764,6 +872,49 @@ ks-swiper-container {
     transition: all 1s cubic-bezier(.55, 0, .1, 1);
     margin: 10px;
 }
+
 .plan-title p {
     margin: 10px;
+}
+
+md-input-container .hint {
+    /* Position the hint */
+    position: absolute;
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: green;
+}
+
+md-input-container .hint.ng-hide,
+md-input-container .hint.ng-enter,
+md-input-container .hint.ng-leave.ng-leave-active {
+    bottom: 26px;
+    opacity: 0;
+}
+
+md-input-container .hint.ng-leave,
+md-input-container .hint.ng-enter.ng-enter-active {
+    bottom: 7px;
+    opacity: 1;
+}
+
+.intro-image-container {
+    width: 100%;
+    margin: 40px 0px;
+    max-width: 600px;
+}
+
+.intro-image-container img {
+    height: 40vh;
+}
+
+.intro-image-container p {
+    font-size: 20px;
+    color: #47494a;
 }
