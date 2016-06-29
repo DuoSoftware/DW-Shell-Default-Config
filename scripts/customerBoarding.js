@@ -41,16 +41,10 @@ p_boarding_module.controller("boarding-parent-ctrl", ["$scope", "$timeout", "$st
 p_boarding_module.controller("boarding-main-ctrl", ["$scope", function ($scope) {}]);
 //Create company view Controller - Start
 p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope", "$http", "$state", "$location", "$mdDialog", "$charge", "$v6urls", "$auth", "$rootScope", "$uploader", "$apps", "$timeout", "$q", function ($window, $scope, $http, $state, $location, $mdDialog, $charge, $v6urls, $auth, $rootScope, $uploader, $apps, $timeout, $q) {
-<<<<<<< HEAD
     $scope.createCompanySuccess = false;
     $scope.hostedDomain = "." + $window.location.host;
-=======
-
     $scope.createCompanySuccess = false;
-
     $scope.hostedDomain = "." + $window.location.host;
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
     $scope.businessType = [];
     $scope.companyLocation = [];
     $scope.createCompanyDetails = {
@@ -83,28 +77,15 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             $scope.companyLocation = data;
             var tempArray = $scope.companyLocation.map(function (state) {
                 return {
-<<<<<<< HEAD
                     value: state.countryName.toLowerCase()
                     , display: state.countryName
-=======
-                    value: state.countryName.toLowerCase(),
-                    display: state.countryName
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
                 };
             });
             // console.log(tempArray);
             $scope.country.states = tempArray;
-<<<<<<< HEAD
         }).error(function (data, status, headers, config) {
             console.log('cant load countries !');
         });
-=======
-
-        }).error(function (data, status, headers, config) {
-            console.log('cant load countries !');
-        });
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
     };
     $scope.loadLocations();
 
@@ -121,10 +102,6 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         });
     };
     getCurrentUserCountry();
-<<<<<<< HEAD
-=======
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
     $scope.country = {};
     $scope.country.searchText = null;
     $scope.country.querySearch = querySearch;
@@ -137,8 +114,6 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         }, Math.random() * 1000, false);
         return deferred.promise;
     }
-<<<<<<< HEAD
-=======
 
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
@@ -146,19 +121,16 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             return (state.value.indexOf(lowercaseQuery) === 0);
         };
     }
-
     $scope.country.selectedItemChange = function (item) {
         if (item) {
             $scope.createCompanyDetails.OtherData.CompanyLocation = item.value;
         }
     };
-
     //$scope.tenantAvailabilityMessage = "Tenant Name is a Must"
     $scope.checkTenantAvailability = function (data) {
         console.log("checking availability");
         //$scope.tenantAvailabilityMessage = "Tenant Name Available";
     };
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
 
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
@@ -188,12 +160,8 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     $scope.$watch("createCompanyDetails.TenantType", function () {
         if ($scope.createCompanyDetails.TenantType === "Developer") {
             $scope.hostedDomain = ".dev." + $scope.hostedDomain;
-<<<<<<< HEAD
         }
         else {
-=======
-        } else {
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
             $scope.hostedDomain = "." + $window.location.host;
         }
     });
@@ -629,7 +597,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         if (toState.name === "shellconfig") {
             showShellCustomizationIntro();
         }
-    })
+    });
     if ($state.current.name === "shellconfig") {
         showShellCustomizationIntro();
     };
@@ -732,7 +700,6 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             var myblob = dataURItoBlob($scope.myCroppedImage);
             var file = blobToFile(myblob, "logo");
             console.log(file);
-<<<<<<< HEAD
             //            $uploader.onSuccess(function () {
             //                $mdDialog.hide();
             //                // console.log("logo uploaded successfully");
@@ -759,58 +726,47 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             //                //return false;
             //            });
             //            $uploader.uploadUserMedia("companylogo", file, "logo.jpg");
-=======
-//            $uploader.onSuccess(function () {
-//                $mdDialog.hide();
-//                // console.log("logo uploaded successfully");
-//                $scope.configIndex = $scope.configIndex + 1
-//                    //return true;
-//                $scope.config.companyConfiguration.logo = "/apis/media/tenant/companylogo/logo.jpg";
-//            });
-//            $uploader.onError(function () {
-//                $mdDialog.hide();
-//                // console.log("logo upload failed");
-//                var confirm = $mdDialog.confirm()
-//                    .title('Something went wrong!')
-//                    .textContent('couldnt upload the company logo')
-//                    .ariaLabel('Lucky day')
-//                    //.targetEvent(ev)
-//                    .ok('Retry!')
-//                    .cancel('use the default');
-//                $mdDialog.show(confirm).then(function () {
-//                    $scope.uploadLogo();
-//                }, function () {
-//                    $scope.configIndex = $scope.configIndex + 1;
-//                    $scope.myCroppedImage = "images/tennantassets/customizedlogo_white.png";
-//                });
-//                //return false;
-//            });
-//            $uploader.uploadUserMedia("companylogo", file, "logo.jpg");
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
+            //            $uploader.onSuccess(function () {
+            //                $mdDialog.hide();
+            //                // console.log("logo uploaded successfully");
+            //                $scope.configIndex = $scope.configIndex + 1
+            //                    //return true;
+            //                $scope.config.companyConfiguration.logo = "/apis/media/tenant/companylogo/logo.jpg";
+            //            });
+            //            $uploader.onError(function () {
+            //                $mdDialog.hide();
+            //                // console.log("logo upload failed");
+            //                var confirm = $mdDialog.confirm()
+            //                    .title('Something went wrong!')
+            //                    .textContent('couldnt upload the company logo')
+            //                    .ariaLabel('Lucky day')
+            //                    //.targetEvent(ev)
+            //                    .ok('Retry!')
+            //                    .cancel('use the default');
+            //                $mdDialog.show(confirm).then(function () {
+            //                    $scope.uploadLogo();
+            //                }, function () {
+            //                    $scope.configIndex = $scope.configIndex + 1;
+            //                    $scope.myCroppedImage = "images/tennantassets/customizedlogo_white.png";
+            //                });
+            //                //return false;
+            //            });
+            //            $uploader.uploadUserMedia("companylogo", file, "logo.jpg");
             var customName = "logo.jpg";
             var namespace = $rootScope.TenantID;
             var cls = "companylogo";
             //var file = $scope.shellBackground;
             var isMedia
-<<<<<<< HEAD
-=======
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
             if (!customName) customName = file.name;
             var uUrl;
             if (isMedia) uUrl = $v6urls.mediaLib + "/" + cls + "/" + customName;
             else uUrl = $v6urls.objectStore + "/" + namespace + "/" + cls + "/" + customName + "/";
-<<<<<<< HEAD
-=======
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
             var fd;
             if (isMedia) fd = file;
             else {
                 fd = new FormData();
                 fd.append('file', file);
             }
-<<<<<<< HEAD
             $http.post(uUrl, fd, {
                 transformRequest: angular.identity
                 , headers: {
@@ -836,40 +792,31 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                 });
                 //return false;
             });
-=======
-
             $http.post(uUrl, fd, {
-                    transformRequest: angular.identity,
-                    headers: {
-                        'Content-Type': (isMedia ? "multipart/form-data" : undefined)
-                    }
-                })
-                .success(function (e) {
-                   $mdDialog.hide();
+                transformRequest: angular.identity
+                , headers: {
+                    'Content-Type': (isMedia ? "multipart/form-data" : undefined)
+                }
+            }).success(function (e) {
+                $mdDialog.hide();
                 // console.log("logo uploaded successfully");
-  $scope.configIndex = $scope.configIndex + 1
-      //return true;
-  $scope.config.companyConfiguration.logo = "/apis/media/tenant/companylogo/logo.jpg";
-                })
-                .error(function (e) {
-                    $mdDialog.hide();
+                $scope.configIndex = $scope.configIndex + 1
+                    //return true;
+                $scope.config.companyConfiguration.logo = "/apis/media/tenant/companylogo/logo.jpg";
+            }).error(function (e) {
+                $mdDialog.hide();
                 // console.log("logo upload failed");
-var confirm = $mdDialog.confirm()
-    .title('Something went wrong!')
-    .textContent('couldnt upload the company logo')
-    .ariaLabel('Lucky day')
-    //.targetEvent(ev)
-    .ok('Retry!')
-    .cancel('use the default');
-$mdDialog.show(confirm).then(function () {
-    $scope.uploadLogo();
-}, function () {
-    $scope.configIndex = $scope.configIndex + 1;
-    $scope.myCroppedImage = "images/tennantassets/customizedlogo_white.png";
-});
-//return false;
+                var confirm = $mdDialog.confirm().title('Something went wrong!').textContent('couldnt upload the company logo').ariaLabel('Lucky day')
+                    //.targetEvent(ev)
+                    .ok('Retry!').cancel('use the default');
+                $mdDialog.show(confirm).then(function () {
+                    $scope.uploadLogo();
+                }, function () {
+                    $scope.configIndex = $scope.configIndex + 1;
+                    $scope.myCroppedImage = "images/tennantassets/customizedlogo_white.png";
                 });
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
+                //return false;
+            });
         };
     };
     $scope.uploadShellBackground = function (ev) {
@@ -902,34 +849,21 @@ $mdDialog.show(confirm).then(function () {
             //
             //            });
             //            $uploader.uploadUserMedia("shellConfigWallpapers", $scope.shellBackground, "background.jpg");
-<<<<<<< HEAD
-=======
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
             var customName = "background.jpg";
             var namespace = $rootScope.TenantID;
             var cls = "shellConfigWallpapers";
             var file = $scope.shellBackground;
             var isMedia
-<<<<<<< HEAD
-=======
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
             if (!customName) customName = file.name;
             var uUrl;
             if (isMedia) uUrl = $v6urls.mediaLib + "/" + cls + "/" + customName;
             else uUrl = $v6urls.objectStore + "/" + namespace + "/" + cls + "/" + customName + "/";
-<<<<<<< HEAD
-=======
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
             var fd;
             if (isMedia) fd = file;
             else {
                 fd = new FormData();
                 fd.append('file', file);
             }
-<<<<<<< HEAD
             $http.post(uUrl, fd, {
                 transformRequest: angular.identity
                 , headers: {
@@ -946,37 +880,22 @@ $mdDialog.show(confirm).then(function () {
                 console.log("background upload failed");
                 $mdDialog.show($mdDialog.alert().clickOutsideToClose(true).title('Something went wrong!').textContent('Couldnt upload Background image').ariaLabel('Alert Dialog Demo').ok('Got it!').targetEvent(ev));
             });
-=======
-
             $http.post(uUrl, fd, {
-                    transformRequest: angular.identity,
-                    headers: {
-                        'Content-Type': (isMedia ? "multipart/form-data" : undefined)
-                    }
-                })
-                .success(function (e) {
-                    $mdDialog.hide();
-                    console.log("background uploaded successfully");
-                    $scope.configIndex = $scope.configIndex + 1
-                        //return true;
-                    $scope.config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl = "/apis/media/tenant/shellConfigWallpapers/background.jpg";
-                })
-                .error(function (e) {
-                    $mdDialog.hide();
-                    console.log("background upload failed");
-                    $mdDialog.show(
-                        $mdDialog.alert()
-                        .clickOutsideToClose(true)
-                        .title('Something went wrong!')
-                        .textContent('Couldnt upload Background image')
-                        .ariaLabel('Alert Dialog Demo')
-                        .ok('Got it!')
-                        .targetEvent(ev)
-                    );
-
-                });
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
+                transformRequest: angular.identity
+                , headers: {
+                    'Content-Type': (isMedia ? "multipart/form-data" : undefined)
+                }
+            }).success(function (e) {
+                $mdDialog.hide();
+                console.log("background uploaded successfully");
+                $scope.configIndex = $scope.configIndex + 1
+                    //return true;
+                $scope.config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl = "/apis/media/tenant/shellConfigWallpapers/background.jpg";
+            }).error(function (e) {
+                $mdDialog.hide();
+                console.log("background upload failed");
+                $mdDialog.show($mdDialog.alert().clickOutsideToClose(true).title('Something went wrong!').textContent('Couldnt upload Background image').ariaLabel('Alert Dialog Demo').ok('Got it!').targetEvent(ev));
+            });
         };
     };
 
@@ -1118,15 +1037,8 @@ p_boarding_module.controller("boarding-joincompany-ctrl", ["$window", "$scope", 
 //Join company view Controller - End
 p_boarding_module.directive('availability', function ($http) {
     return {
-<<<<<<< HEAD
         require: 'ngModel'
         , link: function (scope, elem, attr, ngModel) {
-=======
-        require: 'ngModel',
-        link: function (scope, elem, attr, ngModel) {
-
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
             elem.bind('blur', function () {
                 console.log(ngModel.$viewValue);
                 var value = ngModel.$viewValue;
@@ -1141,12 +1053,8 @@ p_boarding_module.directive('availability', function ($http) {
                     console.log(data);
                     if (data.TenantID === "") {
                         ngModel.$setValidity('availability', true);
-<<<<<<< HEAD
                     }
                     else {
-=======
-                    } else {
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
                         ngModel.$setValidity('availability', false);
                     }
                 }).
@@ -1155,10 +1063,6 @@ p_boarding_module.directive('availability', function ($http) {
                     ngModel.$setValidity('availability', true);
                 });
             };
-<<<<<<< HEAD
-=======
-
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
         }
     };
 });

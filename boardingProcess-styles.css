@@ -876,10 +876,7 @@ ks-swiper-container {
 .plan-title p {
     margin: 10px;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
 md-input-container .hint {
     /* Position the hint */
     position: absolute;
@@ -893,26 +890,19 @@ md-input-container .hint {
     /* Set our own color */
     color: green;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
 md-input-container .hint.ng-hide,
 md-input-container .hint.ng-enter,
 md-input-container .hint.ng-leave.ng-leave-active {
     bottom: 26px;
     opacity: 0;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
 md-input-container .hint.ng-leave,
 md-input-container .hint.ng-enter.ng-enter-active {
     bottom: 7px;
     opacity: 1;
 }
-<<<<<<< HEAD
 
 .intro-image-container {
     width: 100%;
@@ -928,5 +918,3 @@ md-input-container .hint.ng-enter.ng-enter-active {
     font-size: 20px;
     color: #47494a;
 }
-=======
->>>>>>> 711efa57b9b9f1374b9e7a76d83670e85ce6f8b5
