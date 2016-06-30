@@ -598,10 +598,9 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             showShellCustomizationIntro();
         }
     });
-    if ($state.current.name === "shellconfig") {
-        showShellCustomizationIntro();
-    };
-
+    //    if ($state.current.name === "shellconfig") {
+    //        showShellCustomizationIntro();
+    //    };
     function showShellCustomizationIntro() {
         $mdDialog.show({
             controller: shellCustomizationIntroController
@@ -759,7 +758,8 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             var isMedia
             if (!customName) customName = file.name;
             var uUrl;
-            if (isMedia) uUrl = $v6urls.mediaLib + "/" + cls + "/" + customName;
+            //if (isMedia) uUrl = $v6urls.mediaLib + "/" + cls + "/" + customName;
+            if (isMedia) uUrl = "http://" + namespace + "/apis/media/tenant/" + cls + "/" + customName;
             else uUrl = $v6urls.objectStore + "/" + namespace + "/" + cls + "/" + customName + "/";
             var fd;
             if (isMedia) fd = file;
@@ -767,31 +767,6 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                 fd = new FormData();
                 fd.append('file', file);
             }
-            $http.post(uUrl, fd, {
-                transformRequest: angular.identity
-                , headers: {
-                    'Content-Type': (isMedia ? "multipart/form-data" : undefined)
-                }
-            }).success(function (e) {
-                $mdDialog.hide();
-                // console.log("logo uploaded successfully");
-                $scope.configIndex = $scope.configIndex + 1
-                    //return true;
-                $scope.config.companyConfiguration.logo = "/apis/media/tenant/companylogo/logo.jpg";
-            }).error(function (e) {
-                $mdDialog.hide();
-                // console.log("logo upload failed");
-                var confirm = $mdDialog.confirm().title('Something went wrong!').textContent('couldnt upload the company logo').ariaLabel('Lucky day')
-                    //.targetEvent(ev)
-                    .ok('Retry!').cancel('use the default');
-                $mdDialog.show(confirm).then(function () {
-                    $scope.uploadLogo();
-                }, function () {
-                    $scope.configIndex = $scope.configIndex + 1;
-                    $scope.myCroppedImage = "images/tennantassets/customizedlogo_white.png";
-                });
-                //return false;
-            });
             $http.post(uUrl, fd, {
                 transformRequest: angular.identity
                 , headers: {
@@ -856,7 +831,8 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             var isMedia
             if (!customName) customName = file.name;
             var uUrl;
-            if (isMedia) uUrl = $v6urls.mediaLib + "/" + cls + "/" + customName;
+            //if (isMedia) uUrl = $v6urls.mediaLib + "/" + cls + "/" + customName;
+            if (isMedia) uUrl = "http://" + namespace + "/apis/media/tenant/" + cls + "/" + customName;
             else uUrl = $v6urls.objectStore + "/" + namespace + "/" + cls + "/" + customName + "/";
             var fd;
             if (isMedia) fd = file;
@@ -864,22 +840,6 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                 fd = new FormData();
                 fd.append('file', file);
             }
-            $http.post(uUrl, fd, {
-                transformRequest: angular.identity
-                , headers: {
-                    'Content-Type': (isMedia ? "multipart/form-data" : undefined)
-                }
-            }).success(function (e) {
-                $mdDialog.hide();
-                console.log("background uploaded successfully");
-                $scope.configIndex = $scope.configIndex + 1
-                    //return true;
-                $scope.config.shellConfiguration.backgroundconfiguration[2].backgroundimageconfig.imageurl = "/apis/media/tenant/shellConfigWallpapers/background.jpg";
-            }).error(function (e) {
-                $mdDialog.hide();
-                console.log("background upload failed");
-                $mdDialog.show($mdDialog.alert().clickOutsideToClose(true).title('Something went wrong!').textContent('Couldnt upload Background image').ariaLabel('Alert Dialog Demo').ok('Got it!').targetEvent(ev));
-            });
             $http.post(uUrl, fd, {
                 transformRequest: angular.identity
                 , headers: {
