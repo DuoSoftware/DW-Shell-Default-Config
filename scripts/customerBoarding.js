@@ -755,7 +755,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             var namespace = $rootScope.TenantID;
             var cls = "companylogo";
             //var file = $scope.shellBackground;
-            var isMedia
+            var isMedia = true;
             if (!customName) customName = file.name;
             var uUrl;
             //if (isMedia) uUrl = $v6urls.mediaLib + "/" + cls + "/" + customName;
@@ -828,7 +828,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             var namespace = $rootScope.TenantID;
             var cls = "shellConfigWallpapers";
             var file = $scope.shellBackground;
-            var isMedia
+            var isMedia = true;
             if (!customName) customName = file.name;
             var uUrl;
             //if (isMedia) uUrl = $v6urls.mediaLib + "/" + cls + "/" + customName;
