@@ -592,15 +592,15 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             , per: "/ User"
             , Description: "desc"
         }];
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        console.log(toState);
-        if (toState.name === "shellconfig") {
-            showShellCustomizationIntro();
-        }
-    });
-    //    if ($state.current.name === "shellconfig") {
+    //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    //    console.log(toState);
+    //    if (toState.name === "shellconfig") {
     //        showShellCustomizationIntro();
-    //    };
+    //    }
+    //});
+        if ($state.current.name === "shellconfig") {
+            showShellCustomizationIntro();
+        };
     function showShellCustomizationIntro() {
         $mdDialog.show({
             controller: shellCustomizationIntroController
