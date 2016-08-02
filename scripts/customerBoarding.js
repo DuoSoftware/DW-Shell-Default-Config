@@ -4,25 +4,25 @@ var p_boarding_module = angular.module("platformBoardingModule", ["ui.router", "
 p_boarding_module.config(['$stateProvider', '$urlRouterProvider', function ($sp, $urp) {
     $urp.otherwise('/main');
     $sp.state('main', {
-        url: '/main'
-        , templateUrl: 'main-partial.html'
-        , controller: 'boarding-main-ctrl'
+        url: '/main',
+        templateUrl: 'main-partial.html',
+        controller: 'boarding-main-ctrl'
     }).state('createcompany', {
-        url: '/createcompany'
-        , templateUrl: 'createcompany-partial.html'
-        , controller: 'boarding-createcompany-ctrl'
+        url: '/createcompany',
+        templateUrl: 'createcompany-partial.html',
+        controller: 'boarding-createcompany-ctrl'
     }).state('joincompany', {
-        url: '/joincompany'
-        , templateUrl: 'joincompany-partial.html'
-        , controller: 'boarding-joincompany-ctrl'
+        url: '/joincompany',
+        templateUrl: 'joincompany-partial.html',
+        controller: 'boarding-joincompany-ctrl'
     }).state('plans', {
-        url: '/plans'
-        , templateUrl: 'plans-partial.html'
-        , controller: 'boarding-createcompany-ctrl'
+        url: '/plans',
+        templateUrl: 'plans-partial.html',
+        controller: 'boarding-createcompany-ctrl'
     }).state('shellconfig', {
-        url: '/shellcustomization'
-        , templateUrl: 'shellconfig-partial.html'
-        , controller: 'boarding-createcompany-ctrl'
+        url: '/shellcustomization',
+        templateUrl: 'shellconfig-partial.html',
+        controller: 'boarding-createcompany-ctrl'
     });
 }]);
 //Platform entry view route configuration - End
@@ -43,24 +43,22 @@ p_boarding_module.controller("boarding-main-ctrl", ["$scope", function ($scope) 
 p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope", "$http", "$state", "$location", "$mdDialog", "$charge", "$v6urls", "$auth", "$rootScope", "$uploader", "$apps", "$timeout", "$q", function ($window, $scope, $http, $state, $location, $mdDialog, $charge, $v6urls, $auth, $rootScope, $uploader, $apps, $timeout, $q) {
     $scope.createCompanySuccess = false;
     $scope.hostedDomain = "." + $window.location.host;
-    $scope.createCompanySuccess = false;
-    $scope.hostedDomain = "." + $window.location.host;
     $scope.businessType = [];
     $scope.companyLocation = [];
     $scope.createCompanyDetails = {
-        "TenantID": ""
-        , "Name": "", // "Shell": "",
+        "TenantID": "",
+        "Name": "", // "Shell": "",
         "Statistic": {
-            "DataDown": "1GB"
-            , "DataUp": "1GB"
-            , "NumberOfUsers": "1"
-        }
-        , "Private": true
-        , "OtherData": {
-            "CompanyType": ""
-            , "CompanyLocation": ""
-        }
-        , "TenantType": "Company"
+            "DataDown": "1GB",
+            "DataUp": "1GB",
+            "NumberOfUsers": "1"
+        },
+        "Private": true,
+        "OtherData": {
+            "CompanyType": "",
+            "CompanyLocation": ""
+        },
+        "TenantType": ""
     };
     $scope.loadBusinessType = function () {
         $http.get('data/business.json').
@@ -77,8 +75,8 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             $scope.companyLocation = data;
             var tempArray = $scope.companyLocation.map(function (state) {
                 return {
-                    value: state.countryName.toLowerCase()
-                    , display: state.countryName
+                    value: state.countryName.toLowerCase(),
+                    display: state.countryName
                 };
             });
             // console.log(tempArray);
@@ -152,19 +150,28 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         $rootScope.createCompanyDetails = $scope.createCompanyDetails;
         if ($scope.createCompanyDetails.TenantType == 'Developer') {
             $scope.submitCreateCompanyDetails();
-        }
-        else {
+        } else {
             $state.go('plans');
         }
     };
     $scope.$watch("createCompanyDetails.TenantType", function () {
         if ($scope.createCompanyDetails.TenantType === "Developer") {
             $scope.hostedDomain = ".dev." + $scope.hostedDomain;
-        }
-        else {
+            $scope.agreement = false;
+            console.log("make false");
+        } else {
             $scope.hostedDomain = "." + $window.location.host;
+            $scope.agreement = true;
+            console.log("make true");
         }
     });
+
+    $scope.toggleAgreement = function () {
+        $scope.agreement = !$scope.agreement;
+    }
+    $scope.showDeveloperAgreement = function () {
+        window.open('partials/developerAgreement.html')
+    }
     $scope.submitCreateCompanyDetails = function () {
         console.log($rootScope.createCompanyDetails);
         //var payload = angular.toJson(defaultDataInjection($rootScope.createCompanyDetails));
@@ -172,12 +179,12 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         console.log(payload);
         displaycreateCompanyDetailsSubmissionProgress('Submitting your company details, please wait...');
         $http({
-            method: 'POST'
-            , url: '/apis/usertenant/tenant/'
-            , headers: {
+            method: 'POST',
+            url: '/apis/usertenant/tenant/',
+            headers: {
                 'Content-Type': 'application/json'
-            }
-            , data: payload
+            },
+            data: payload
         }).success(function (data, status, headers, config) {
             $mdDialog.hide();
             console.log(data);
@@ -185,8 +192,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                 $rootScope.TenantID = data.Data.TenantID;
                 $state.go('shellconfig');
                 // resetFormPrestine();
-            }
-            else {
+            } else {
                 $state.go('createcompany');
                 displaycreateCompanyDetailsSubmissionError('Sorry, ' + data.Message);
                 // resetFormPrestine();
@@ -201,8 +207,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         {
             if (parseInt(package.price) === 0) { //Free company tenant
                 $scope.submitCreateCompanyDetails();
-            }
-            else {
+            } else {
                 displaycreateCompanyDetailsSubmissionProgress('Submitting your company details, please wait...');
                 $charge.payment().getAccounts().success(function (data) { //check for payment methods
                     $mdDialog.hide();
@@ -217,13 +222,13 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         }
     var newCard = function (acc, package) {
         $mdDialog.show({
-            controller: "addCardCtrl"
-            , templateUrl: 'partials/newCard.html'
-            , parent: angular.element(document.body)
-            , clickOutsideToClose: false
-            , locals: {
-                cardObject: ""
-                , account: acc
+            controller: "addCardCtrl",
+            templateUrl: 'partials/newCard.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: false,
+            locals: {
+                cardObject: "",
+                account: acc
             }
         }).then(function (account) {
             if (account) {
@@ -233,21 +238,20 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     }
     var showCards = function (acc, package) {
             $mdDialog.show({
-                controller: "myCardsCtrl"
-                , templateUrl: 'partials/myCards.html'
-                , parent: angular.element(document.body)
-                , clickOutsideToClose: false
-                , locals: {
-                    account: acc
-                    , package: package
+                controller: "myCardsCtrl",
+                templateUrl: 'partials/myCards.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                locals: {
+                    account: acc,
+                    package: package
                 }
             }).then(function (response) {
                 if (response) {
                     if (response.purchase === true) // A user may either close this dialog to either purchase a tenant or open newCard dialog
                     {
                         $scope.submitCreateCompanyDetails();
-                    }
-                    else {
+                    } else {
                         newCard(response.account, response.app);
                     }
                 }
@@ -264,9 +268,10 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     var defaultDataInjection = function (data) {
         if (data.TenantType === "Compnay") {
             data.TenantID = data.TenantID + "." + $scope.hostedDomain;
-        }
-        else {
+
+        } else {
             data.TenantID = data.TenantID + ".dev." + $scope.hostedDomain;
+
         };
         return data;
     };
@@ -275,9 +280,9 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     };
     var displaycreateCompanyDetailsSubmissionProgress = function (a) {
         $mdDialog.show({
-            template: '<md-dialog ng-cloak>' + '   <md-dialog-content>' + '       <div style="height:auto; width:auto; padding:10px;" class="loadInidcatorContainer" layout="row" layout-align="start center">' + '           <md-progress-circular class="md-primary" md-mode="indeterminate" md-diameter="40"></md-progress-circular>' + '           <span>' + a + '</span>' + '       </div>' + '   </md-dialog-content>' + '</md-dialog>'
-            , parent: angular.element(document.body)
-            , clickOutsideToClose: false
+            template: '<md-dialog ng-cloak>' + '   <md-dialog-content>' + '       <div style="height:auto; width:auto; padding:10px;" class="loadInidcatorContainer" layout="row" layout-align="start center">' + '           <md-progress-circular class="md-primary" md-mode="indeterminate" md-diameter="40"></md-progress-circular>' + '           <span>' + a + '</span>' + '       </div>' + '   </md-dialog-content>' + '</md-dialog>',
+            parent: angular.element(document.body),
+            clickOutsideToClose: false
         });
     };
     // $scope.switchEntryView = function(stateinchange){
@@ -286,81 +291,81 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     //shell config start
     $scope.config = {
         "companyConfiguration": {
-            "title": ""
-            , "logo": "images/tennantassets/customizedlogo_white.png"
-            , "banner": "images/logo.png"
-        }
-        , "shellConfiguration": {
-            "userEditable": true
-            , "docklayoutconfiguration": {
+            "title": "",
+            "logo": "images/tennantassets/customizedlogo_white.png",
+            "banner": "images/logo.png"
+        },
+        "shellConfiguration": {
+            "userEditable": true,
+            "docklayoutconfiguration": {
                 "pannelcollection": [
                     {
-                        "shellRelationship": "DuoWorld Alpha Shell v 1.0"
-                        , "panelDescription": "Framework shell applications panel"
-                        , "panelTitle": "applications"
-                        , "pannnelDirectiveContentTemplate": "partials/panel-templates/applications-pannel.html"
-                        , "panelArrangement": 0
-                        , "pannelContentCollectionType": "application-component"
-                        , "row": 0
-                        , "col": 0
-                        , "panelType": "Applications"
+                        "shellRelationship": "DuoWorld Alpha Shell v 1.0",
+                        "panelDescription": "Framework shell applications panel",
+                        "panelTitle": "applications",
+                        "pannnelDirectiveContentTemplate": "partials/panel-templates/applications-pannel.html",
+                        "panelArrangement": 0,
+                        "pannelContentCollectionType": "application-component",
+                        "row": 0,
+                        "col": 0,
+                        "panelType": "Applications"
 			}
                     , {
-                        "shellRelationship": "DuoWorld Alpha Shell v 1.0"
-                        , "panelDescription": "Framework shell custom panel"
-                        , "panelTitle": "collection"
-                        , "pannnelDirectiveContentTemplate": "partials/panel-templates/collections-pannel.html"
-                        , "panelArrangement": 1
-                        , "pannelContentCollectionType": "various-component"
-                        , "row": 0
-                        , "col": 1
-                        , "panelType": "Collections"
+                        "shellRelationship": "DuoWorld Alpha Shell v 1.0",
+                        "panelDescription": "Framework shell custom panel",
+                        "panelTitle": "collection",
+                        "pannnelDirectiveContentTemplate": "partials/panel-templates/collections-pannel.html",
+                        "panelArrangement": 1,
+                        "pannelContentCollectionType": "various-component",
+                        "row": 0,
+                        "col": 1,
+                        "panelType": "Collections"
 			}
-		]
-                , "dockoptions": {
-                    "transitioneffect": "crossFade"
-                    , "layoutdirection": "horizontal"
-                    , "pagination": false
-                    , "looppannels": true
+		],
+                "dockoptions": {
+                    "transitioneffect": "crossFade",
+                    "layoutdirection": "horizontal",
+                    "pagination": false,
+                    "looppannels": true
                 }
-            }
-            , "themeconfiguration": {
-                "palettename": "indigo"
-                , "primarypalette": "#3F51B5"
-                , "accentpalette": "#E91E63"
-            }
-            , "backgroundconfiguration": [
+            },
+            "themeconfiguration": {
+                "palettename": "indigo",
+                "primarypalette": "#3F51B5",
+                "accentpalette": "#E91E63"
+            },
+            "backgroundconfiguration": [
                 {
-                    "backgroundtype": "solid"
-                    , "backgroundtypeactive": false
-                    , "backgroundcolor": "#FF4081"
+                    "backgroundtype": "solid",
+                    "backgroundtypeactive": false,
+                    "backgroundcolor": "#FF4081"
 		}
                 , {
-                    "backgroundtype": "gradient"
-                    , "backgroundtypeactive": false
-                    , "backgroundgradientconfig": {
-                        "color1": "#FF4081"
-                        , "color2": "#3F51B5"
-                        , "orientation": "diagonalup"
+                    "backgroundtype": "gradient",
+                    "backgroundtypeactive": false,
+                    "backgroundgradientconfig": {
+                        "color1": "#FF4081",
+                        "color2": "#3F51B5",
+                        "orientation": "diagonalup"
                     }
 		}
                 , {
-                    "backgroundtype": "image"
-                    , "backgroundtypeactive": true
-                    , "backgroundimageconfig": {
-                        "imageurl": "images/shellassets/background/blur-background12.jpg"
-                        , "imageblur": {
-                            "status": true
-                            , "amount": 10
-                        }
-                        , "textureoverlay": false
-                        , "vignetteoverlay": false
+                    "backgroundtype": "image",
+                    "backgroundtypeactive": true,
+                    "backgroundimageconfig": {
+                        "imageurl": "images/shellassets/background/blur-background12.jpg",
+                        "imageblur": {
+                            "status": true,
+                            "amount": 10
+                        },
+                        "textureoverlay": false,
+                        "vignetteoverlay": false
                     }
 		}
 	]
-        }
-        , "defaultAppConfiguration": []
-        , "tenantId": ""
+        },
+        "defaultAppConfiguration": [],
+        "tenantId": ""
     };
     $scope.state = "branding";
     $scope.configIndex = 0;
@@ -368,229 +373,229 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     $scope.device = "desktop";
     $scope.defaultThemes = [
         {
-            primarypaletteName: 'red'
-            , primarypalette: '#F44336'
-            , accentpalette: '#FFC107'
+            primarypaletteName: 'red',
+            primarypalette: '#F44336',
+            accentpalette: '#FFC107'
             }
         , {
-            primarypaletteName: 'pink'
-            , primarypalette: '#E91E63'
-            , accentpalette: '#CDDC39'
+            primarypaletteName: 'pink',
+            primarypalette: '#E91E63',
+            accentpalette: '#CDDC39'
             }
         , {
-            primarypaletteName: 'puple'
-            , primarypalette: '#9C27B0'
-            , accentpalette: '#00BCD4'
+            primarypaletteName: 'puple',
+            primarypalette: '#9C27B0',
+            accentpalette: '#00BCD4'
             }
         , {
-            primarypaletteName: 'deep-purple'
-            , primarypalette: '#673AB7'
-            , accentpalette: '#FF5722'
+            primarypaletteName: 'deep-purple',
+            primarypalette: '#673AB7',
+            accentpalette: '#FF5722'
             }
         , {
-            primarypaletteName: 'indigo'
-            , primarypalette: '#3F51B5'
-            , accentpalette: '#FF4081'
+            primarypaletteName: 'indigo',
+            primarypalette: '#3F51B5',
+            accentpalette: '#FF4081'
             }
         , {
-            primarypaletteName: 'blue'
-            , primarypalette: '#2196F3'
-            , accentpalette: '#607D8B'
+            primarypaletteName: 'blue',
+            primarypalette: '#2196F3',
+            accentpalette: '#607D8B'
             }
         , {
-            primarypaletteName: 'light-blue'
-            , primarypalette: '#03A9F4'
-            , accentpalette: '#FF5252'
+            primarypaletteName: 'light-blue',
+            primarypalette: '#03A9F4',
+            accentpalette: '#FF5252'
             }
         , {
-            primarypaletteName: 'cyan'
-            , primarypalette: '#00BCD4'
-            , accentpalette: '#FFC107'
+            primarypaletteName: 'cyan',
+            primarypalette: '#00BCD4',
+            accentpalette: '#FFC107'
             }
         , {
-            primarypaletteName: 'teal'
-            , primarypalette: '#009688'
-            , accentpalette: '#FF9800'
+            primarypaletteName: 'teal',
+            primarypalette: '#009688',
+            accentpalette: '#FF9800'
             }
         , {
-            primarypaletteName: 'green'
-            , primarypalette: '#4CAF50'
-            , accentpalette: '#7C4DFF'
+            primarypaletteName: 'green',
+            primarypalette: '#4CAF50',
+            accentpalette: '#7C4DFF'
             }
         , {
-            primarypaletteName: 'light-green'
-            , primarypalette: '#8BC34A'
-            , accentpalette: '#607D8B'
+            primarypaletteName: 'light-green',
+            primarypalette: '#8BC34A',
+            accentpalette: '#607D8B'
             }
         , {
-            primarypaletteName: 'lime'
-            , primarypalette: '#CDDC39'
-            , accentpalette: '#00BCD4'
+            primarypaletteName: 'lime',
+            primarypalette: '#CDDC39',
+            accentpalette: '#00BCD4'
             }
         , {
-            primarypaletteName: 'yellow'
-            , primarypalette: '#FFEB3B'
-            , accentpalette: '#536DFE'
+            primarypaletteName: 'yellow',
+            primarypalette: '#FFEB3B',
+            accentpalette: '#536DFE'
             }
         , {
-            primarypaletteName: 'amber'
-            , primarypalette: '#FFC107'
-            , accentpalette: '#03A9F4'
+            primarypaletteName: 'amber',
+            primarypalette: '#FFC107',
+            accentpalette: '#03A9F4'
             }
         , {
-            primarypaletteName: 'orange'
-            , primarypalette: '#FF9800'
-            , accentpalette: '#009688'
+            primarypaletteName: 'orange',
+            primarypalette: '#FF9800',
+            accentpalette: '#009688'
             }
         , {
-            primarypaletteName: 'deep-orange'
-            , primarypalette: '#FF5722'
-            , accentpalette: '#CDDC39'
+            primarypaletteName: 'deep-orange',
+            primarypalette: '#FF5722',
+            accentpalette: '#CDDC39'
             }
         , {
-            primarypaletteName: 'brown'
-            , primarypalette: '#795548'
-            , accentpalette: '#CDDC39'
+            primarypaletteName: 'brown',
+            primarypalette: '#795548',
+            accentpalette: '#CDDC39'
             }
         , {
-            primarypaletteName: 'grey'
-            , primarypalette: '#9E9E9E'
-            , accentpalette: '#00BCD4'
+            primarypaletteName: 'grey',
+            primarypalette: '#9E9E9E',
+            accentpalette: '#00BCD4'
             }
         , {
-            primarypaletteName: 'blue-grey'
-            , primarypalette: '#607D8B'
-            , accentpalette: '#FFC107'
+            primarypaletteName: 'blue-grey',
+            primarypalette: '#607D8B',
+            accentpalette: '#FFC107'
             }
 		];
     $scope.wallpapers = [
         {
-            imgUrl: 'images/shellassets/background/blur-background01.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background01.jpg'
+            imgUrl: 'images/shellassets/background/blur-background01.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background01.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background02.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background02.jpg'
+            imgUrl: 'images/shellassets/background/blur-background02.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background02.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background03.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background03.jpg'
+            imgUrl: 'images/shellassets/background/blur-background03.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background03.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background04.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background04.jpg'
+            imgUrl: 'images/shellassets/background/blur-background04.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background04.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background05.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background05.jpg'
+            imgUrl: 'images/shellassets/background/blur-background05.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background05.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background06.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background06.jpg'
+            imgUrl: 'images/shellassets/background/blur-background06.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background06.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background07.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background07.jpg'
+            imgUrl: 'images/shellassets/background/blur-background07.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background07.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background08.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background08.jpg'
+            imgUrl: 'images/shellassets/background/blur-background08.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background08.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background09.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background09.jpg'
+            imgUrl: 'images/shellassets/background/blur-background09.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background09.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background10.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background10.jpg'
+            imgUrl: 'images/shellassets/background/blur-background10.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background10.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background11.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background11.jpg'
+            imgUrl: 'images/shellassets/background/blur-background11.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background11.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background12.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background01.jpg'
+            imgUrl: 'images/shellassets/background/blur-background12.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background01.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background13.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background13.jpg'
+            imgUrl: 'images/shellassets/background/blur-background13.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background13.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background14.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background14.jpg'
+            imgUrl: 'images/shellassets/background/blur-background14.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background14.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background15.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background15.jpg'
+            imgUrl: 'images/shellassets/background/blur-background15.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background15.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background16.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background16.jpg'
+            imgUrl: 'images/shellassets/background/blur-background16.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background16.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background17.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background17.jpg'
+            imgUrl: 'images/shellassets/background/blur-background17.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background17.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background18.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background18.jpg'
+            imgUrl: 'images/shellassets/background/blur-background18.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background18.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background19.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background19.jpg'
+            imgUrl: 'images/shellassets/background/blur-background19.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background19.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background20.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background20.jpg'
+            imgUrl: 'images/shellassets/background/blur-background20.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background20.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background21.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background21.jpg'
+            imgUrl: 'images/shellassets/background/blur-background21.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background21.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background22.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background22.jpg'
+            imgUrl: 'images/shellassets/background/blur-background22.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background22.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background23.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background23.jpg'
+            imgUrl: 'images/shellassets/background/blur-background23.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background23.jpg'
             }
         , {
-            imgUrl: 'images/shellassets/background/blur-background24.jpg'
-            , thumb: 'images/shellassets/background/250x250_blur-background24.jpg'
+            imgUrl: 'images/shellassets/background/blur-background24.jpg',
+            thumb: 'images/shellassets/background/250x250_blur-background24.jpg'
             }
 		];
     $scope.companyPricePlans = [
         {
-            id: "personal_space"
-            , name: "Personal Space"
-            , numberOfUsers: "1"
-            , numberOfApps: "Unlimited"
-            , storage: "10 GB"
-            , price: "0"
-            , per: "/ Mo"
-            , Description: "desc"
+            id: "personal_space",
+            name: "Personal Space",
+            numberOfUsers: "1",
+            numberOfApps: "Unlimited",
+            storage: "10 GB",
+            price: "0",
+            per: "/ Mo",
+            Description: "desc"
         }
         , {
-            id: "mini_team"
-            , name: "We Are A Mini Team"
-            , numberOfUsers: "5"
-            , numberOfApps: "Unlimited"
-            , storage: "10 GB"
-            , price: "0"
-            , per: "/ Mo"
-            , Description: "desc"
+            id: "mini_team",
+            name: "We Are A Mini Team",
+            numberOfUsers: "5",
+            numberOfApps: "Unlimited",
+            storage: "10 GB",
+            price: "0",
+            per: "/ Mo",
+            Description: "desc"
         }
         , {
-            id: "world"
-            , name: "We Are the World"
-            , numberOfUsers: "Unlimited"
-            , numberOfApps: "Unlimited"
-            , storage: "10 GB"
-            , price: "4.99"
-            , per: "/ User"
-            , Description: "desc"
+            id: "world",
+            name: "We Are the World",
+            numberOfUsers: "Unlimited",
+            numberOfApps: "Unlimited",
+            storage: "10 GB",
+            price: "4.99",
+            per: "/ User",
+            Description: "desc"
         }];
     //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
     //    console.log(toState);
@@ -598,13 +603,14 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     //        showShellCustomizationIntro();
     //    }
     //});
-        if ($state.current.name === "shellconfig") {
-            showShellCustomizationIntro();
-        };
+    if ($state.current.name === "shellconfig") {
+        showShellCustomizationIntro();
+    };
+
     function showShellCustomizationIntro() {
         $mdDialog.show({
-            controller: shellCustomizationIntroController
-            , templateUrl: 'shellCustomizationIntro.html', // targetEvent: ev
+            controller: shellCustomizationIntroController,
+            templateUrl: 'shellCustomizationIntro.html', // targetEvent: ev
             clickOutsideToClose: true
                 //, //fullscreen: useFullScreen
         }).then(function (answer) {
@@ -620,8 +626,8 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         };
         $scope.skipShellCustomization = function (ev) {
             var answer = {
-                status: true
-                , ev: ev
+                status: true,
+                ev: ev
             }
             $mdDialog.hide(answer);
         };
@@ -651,12 +657,10 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                 if (iconUrl) {
                     if (iconUrl.indexOf("http") === 0) {
                         data.apps[appIndex].iconUrl = iconUrl;
-                    }
-                    else {
+                    } else {
                         data.apps[appIndex].iconUrl = window.location.protocol + "//" + appIconHostName + iconUrl;
                     }
-                }
-                else {
+                } else {
                     data.apps[appIndex].iconUrl = "/devportal/appicons/29fa48d1ffbb1f3792a417cda647df7d.png";
                 }
             }
@@ -693,8 +697,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     $scope.uploadCompanyLogo = function () {
         if ($scope.myCroppedImage === "images/tennantassets/customizedlogo_white.png") {
             $scope.configIndex = $scope.configIndex + 1
-        }
-        else {
+        } else {
             displaycreateCompanyDetailsSubmissionProgress("Uploading Company Logo, Please wait...");
             var myblob = dataURItoBlob($scope.myCroppedImage);
             var file = blobToFile(myblob, "logo");
@@ -768,8 +771,8 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                 fd.append('file', file);
             }
             $http.post(uUrl, fd, {
-                transformRequest: angular.identity
-                , headers: {
+                transformRequest: angular.identity,
+                headers: {
                     'Content-Type': (isMedia ? "multipart/form-data" : undefined)
                 }
             }).success(function (e) {
@@ -799,8 +802,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         console.log($scope.shellBackground);
         if ($scope.shellBackground === "") {
             $scope.configIndex = $scope.configIndex + 1
-        }
-        else {
+        } else {
             displaycreateCompanyDetailsSubmissionProgress("Uploading Shell Background, Please wait...");
             //            $uploader.onSuccess(function () {
             //                $mdDialog.hide();
@@ -841,8 +843,8 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                 fd.append('file', file);
             }
             $http.post(uUrl, fd, {
-                transformRequest: angular.identity
-                , headers: {
+                transformRequest: angular.identity,
+                headers: {
                     'Content-Type': (isMedia ? "multipart/form-data" : undefined)
                 }
             }).success(function (e) {
@@ -888,12 +890,12 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
         $scope.config.tenantId = $rootScope.TenantID;
         console.log($scope.config);
         $http({
-            method: 'POST'
-            , url: '/apis/usertenant/tenant/shell/configurations/' + $rootScope.TenantID
-            , headers: {
+            method: 'POST',
+            url: '/apis/usertenant/tenant/shell/configurations/' + $rootScope.TenantID,
+            headers: {
                 'Content-Type': 'application/json'
-            }
-            , data: $scope.config
+            },
+            data: $scope.config
         }).success(function (data, status, headers, config) {
             $mdDialog.hide();
             console.log(data);
@@ -903,8 +905,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
                     window.location.href = "http://" + $rootScope.TenantID + '/shell';
                 }, function () {});
                 // resetFormPrestine();
-            }
-            else {
+            } else {
                 displaycreateCompanyDetailsSubmissionError('Sorry, we are having problems creating your company at this moment. Please try again later.');
                 // resetFormPrestine();
             }
@@ -955,20 +956,19 @@ p_boarding_module.controller("boarding-joincompany-ctrl", ["$window", "$scope", 
         var payload = angular.toJson(joinCompanyDetails);
         displayjoinRequestSubmissionProgress();
         $http({
-            method: 'POST'
-            , url: 'http://test.12thdoor.com/apis/authorization/userauthorization/userregistration'
-            , headers: {
+            method: 'POST',
+            url: 'http://test.12thdoor.com/apis/authorization/userauthorization/userregistration',
+            headers: {
                 'Content-Type': 'application/json'
-            }
-            , data: payload
+            },
+            data: payload
         }).success(function (data, status, headers, config) {
             $mdDialog.hide();
             console.log(data);
             if (data.Success === false) {
                 displayjoinRequestSubmissionError(data.Message);
                 resetFormPrestine();
-            }
-            else {
+            } else {
                 displayjoinRequestSubmissionError('Sorry, we are having problems processing your request. Please try again later.');
                 resetFormPrestine();
             }
@@ -988,17 +988,17 @@ p_boarding_module.controller("boarding-joincompany-ctrl", ["$window", "$scope", 
     };
     var displayjoinRequestSubmissionProgress = function () {
         $mdDialog.show({
-            template: '<md-dialog ng-cloak>' + '	<md-dialog-content>' + '		<div style="height:auto; width:auto; padding:10px;" class="loadInidcatorContainer" layout="row" layout-align="start center">' + '			<md-progress-circular class="md-primary" md-mode="indeterminate" md-diameter="40"></md-progress-circular>' + '			<span>Submitting your request for an invite, please wait...</span>' + '		</div>' + '	</md-dialog-content>' + '</md-dialog>'
-            , parent: angular.element(document.body)
-            , clickOutsideToClose: false
+            template: '<md-dialog ng-cloak>' + '	<md-dialog-content>' + '		<div style="height:auto; width:auto; padding:10px;" class="loadInidcatorContainer" layout="row" layout-align="start center">' + '			<md-progress-circular class="md-primary" md-mode="indeterminate" md-diameter="40"></md-progress-circular>' + '			<span>Submitting your request for an invite, please wait...</span>' + '		</div>' + '	</md-dialog-content>' + '</md-dialog>',
+            parent: angular.element(document.body),
+            clickOutsideToClose: false
         });
     };
 }]);
 //Join company view Controller - End
 p_boarding_module.directive('availability', function ($http) {
     return {
-        require: 'ngModel'
-        , link: function (scope, elem, attr, ngModel) {
+        require: 'ngModel',
+        link: function (scope, elem, attr, ngModel) {
             elem.bind('blur', function () {
                 console.log(ngModel.$viewValue);
                 var value = ngModel.$viewValue;
@@ -1013,8 +1013,7 @@ p_boarding_module.directive('availability', function ($http) {
                     console.log(data);
                     if (data.TenantID === "") {
                         ngModel.$setValidity('availability', true);
-                    }
-                    else {
+                    } else {
                         ngModel.$setValidity('availability', false);
                     }
                 }).

@@ -64,14 +64,20 @@
                     <div ng-message="maxlength">Your entry is too long.</div>
                 </div>
             </md-autocomplete>
-            <div class="md-actions" layout="column" layout-align="center center">
-                <md-button ng-disabled="!createCompanyForm.$valid" class="md-raised md-primary" style="width:100%" type="submit"><span class="loginBtnLabel">Create Tenant</span></md-button>
+            <div layout="row" layout-align="start center" ng-show="createCompanyDetails.TenantType == 'Developer'">
+                <md-checkbox ng-checked="agreement" ng-click="toggleAgreement()" aria-label="Checkbox 1">
+                    I do agree with Developer <span class="developerAgreement" ng-click="showDeveloperAgreement()">terms & conditions</span>.
+                </md-checkbox>
             </div>
+            <div class="md-actions" layout="column" layout-align="center center">
+                <md-button ng-disabled="!createCompanyForm.$valid || !agreement" class="md-raised md-primary" style="width:100%" type="submit"><span class="loginBtnLabel">Create Tenant </span></md-button>
+            </div>
+
         </form>
     </section>
     <section id="successContainer" flex layout="column" layout-align="center center" ng-switch-when="true">
         <img src="success.png" style="width:100px; height:100px; opacity:0.2;" />
-        <span style="font-size:18px; width:330px; text-align:center; padding:20px 0px 10px 0px;">Your company has been successfully registered to 12thDoor.com</span>
+        <span style="font-size:18px; width:330px; text-align:center; padding:20px 0px 10px 0px;">Your company has been successfully registered to Duoworld.com</span>
         <!-- <span style="font-size:16px; width:330px; text-align:center; padding:10px 0px 10px 0px; color:rgb(63,81,181); cursor:pointer;" ng-click="locateUserEmail()">Please check your email to get started.</span> -->
     </section>
 </md-card>
