@@ -583,7 +583,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             numberOfUsers: "5",
             numberOfApps: "Unlimited",
             storage: "10 GB",
-            price: "0",
+            price: "2.99",
             per: "/ Mo",
             Description: "desc"
         }
