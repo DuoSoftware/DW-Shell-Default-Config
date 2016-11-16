@@ -1,5 +1,5 @@
 // 'use strict';
-var p_boarding_module = angular.module("platformBoardingModule", ["ui.router", "ngAnimate", "uiMicrokernel", "ngMaterial", "ngMessages", "ngImgCrop", "cloudcharge"]);
+var p_boarding_module = angular.module("platformBoardingModule", ["ui.router", "ngAnimate", "uiMicrokernel", "ngMaterial", "ngMessages", "ngImgCrop", "cloudcharge", "payment-tools"]);
 //Platform entry view route configuration - Start
 p_boarding_module.config(['$stateProvider', '$urlRouterProvider', function ($sp, $urp) {
     $urp.otherwise('/main');
@@ -40,7 +40,7 @@ p_boarding_module.controller("boarding-parent-ctrl", ["$scope", "$timeout", "$st
 //Platform boarding view main controller - start
 p_boarding_module.controller("boarding-main-ctrl", ["$scope", function ($scope) {}]);
 //Create company view Controller - Start
-p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope", "$http", "$state", "$location", "$mdDialog", "$charge", "$v6urls", "$auth", "$rootScope", "$uploader", "$apps", "$timeout", "$q", function ($window, $scope, $http, $state, $location, $mdDialog, $charge, $v6urls, $auth, $rootScope, $uploader, $apps, $timeout, $q) {
+p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope", "$http", "$state", "$location", "$mdDialog", "$charge", "$v6urls", "$auth", "$helpers", "$rootScope", "$uploader", "$apps", "$timeout", "$q", "paymentGateway", function ($window, $scope, $http, $state, $location, $mdDialog, $charge, $v6urls, $auth, $helpers, $rootScope, $uploader, $apps, $timeout, $q, paymentGateway) {
     $scope.createCompanySuccess = false;
     $scope.hostedDomain = "." + $window.location.host;
     $scope.businessType = [];
@@ -58,7 +58,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             "CompanyType": "",
             "CompanyLocation": ""
         },
-        "TenantType": ""
+        "TenantType": "Company"
     };
     $scope.loadBusinessType = function () {
         $http.get('data/business.json').
@@ -149,7 +149,17 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     $scope.showPlans = function () {
         $rootScope.createCompanyDetails = $scope.createCompanyDetails;
         if ($scope.createCompanyDetails.TenantType == 'Developer') {
-            $scope.submitCreateCompanyDetails();
+            $scope.submitCreateCompanyDetails(function(data) {
+                if (data.Success === true) {
+                    $rootScope.TenantID = data.Data.TenantID;
+                    $state.go('shellconfig');
+                    // resetFormPrestine();
+                } else {
+                    $state.go('createcompany');
+                    displaycreateCompanyDetailsSubmissionError('Sorry, ' + data.Message);
+                    // resetFormPrestine();
+                }
+            });
         } else {
             $state.go('plans');
         }
@@ -157,110 +167,143 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     $scope.$watch("createCompanyDetails.TenantType", function () {
         if ($scope.createCompanyDetails.TenantType === "Developer") {
             $scope.hostedDomain = ".dev." + $scope.hostedDomain;
-            $scope.agreement = false;
-            console.log("make false");
         } else {
             $scope.hostedDomain = "." + $window.location.host;
-            $scope.agreement = true;
-            console.log("make true");
         }
     });
-
-    $scope.toggleAgreement = function () {
-        $scope.agreement = !$scope.agreement;
-    }
-    $scope.showDeveloperAgreement = function () {
-        window.open('partials/developerAgreement.html')
-    }
-    $scope.submitCreateCompanyDetails = function () {
-        console.log($rootScope.createCompanyDetails);
-        //var payload = angular.toJson(defaultDataInjection($rootScope.createCompanyDetails));
-        var payload = $rootScope.createCompanyDetails;
-        console.log(payload);
-        displaycreateCompanyDetailsSubmissionProgress('Submitting your company details, please wait...');
-        $http({
-            method: 'POST',
-            url: '/apis/usertenant/tenant/',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: payload
-        }).success(function (data, status, headers, config) {
-            $mdDialog.hide();
-            console.log(data);
-            if (data.Success === true) {
-                $rootScope.TenantID = data.Data.TenantID;
-                $state.go('shellconfig');
-                // resetFormPrestine();
-            } else {
-                $state.go('createcompany');
-                displaycreateCompanyDetailsSubmissionError('Sorry, ' + data.Message);
-                // resetFormPrestine();
+    $scope.submitCreateCompanyDetails = function (func) {
+        displaycreateCompanyDetailsSubmissionProgress('Submitting your tenant details, please wait...');
+        createTenant(function(status, response) {
+            if(status) {
+                $mdDialog.hide(); $state.go('shellconfig');
+            }else {
+                $mdDialog.hide(); $state.go('createcompany');
+                displaycreateCompanyDetailsSubmissionError('Sorry, ' + response);
             }
-        }).error(function (data) {
-            $mdDialog.hide();
-            displaycreateCompanyDetailsSubmissionError('Sorry, we are having problems creating your company at this moment. Please try again later.');
-            resetFormPrestine();
         });
     };
-    $scope.selectPlan = function (package) //This is the click event for adding a company tenant in add.html
-        {
-            if (parseInt(package.price) === 0) { //Free company tenant
-                $scope.submitCreateCompanyDetails();
-            } else {
-                displaycreateCompanyDetailsSubmissionProgress('Submitting your company details, please wait...');
-                $charge.payment().getAccounts().success(function (data) { //check for payment methods
-                    $mdDialog.hide();
-                    if (Array.isArray(data) && data.length > 0) showCards(data[0], package); //If user already has a account show cards
-                    else newCard(null, package); //Else prompt to add a card
-                }).error(function (data) {
-                    $mdDialog.hide();
-                    displaycreateCompanyDetailsSubmissionError('Sorry, we are having problems creating your company at this moment. Please try again later.');
-                    console.log(data);
-                })
-            } //End of paid company tenant
+    $scope.selectPlan = function (package, ev) {//This is the click event for adding a company tenant in add.html
+        console.log(package);
+        
+        if(!package)
+            return;
+        
+        packageprice = parseInt(package.price);
+        payconfig = { description: package.name, lable: package.price};
+
+        if(packageprice > 0) { 
+            requestCardDetails(ev, payconfig, function(status, token) {
+                if(status) {
+                    createCompanyTenant({
+                        token: token,
+                        plan: package
+                    });
+                }
+            });
+        }else {
+            createCompanyTenant({plan: package});
         }
-    var newCard = function (acc, package) {
-        $mdDialog.show({
-            controller: "addCardCtrl",
-            templateUrl: 'partials/newCard.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose: false,
-            locals: {
-                cardObject: "",
-                account: acc
-            }
-        }).then(function (account) {
-            if (account) {
-                showCards(account, $rootScope.package);
+    }
+    var requestCardDetails = function(ev, config, callback) {
+
+        var payconfig = {
+            publishKey: 'pk_test_8FepS5OSLnghnaPfVED8Ixkx',
+            title: 'Duoworld',
+            description: (config.description) ? config.description : "for connected business",
+            logo: 'icons/small-logo.png',
+            label: (config.lable) ? "Pay $"+config.lable : "Pay" 
+        };
+
+        var stripegateway = paymentGateway.setup('stripe').configure(payconfig);
+        stripegateway.open(ev, function(token, args) {
+            if(token.hasOwnProperty("id")) callback(true, token.id);
+            else callback(false)
+        });
+    }
+    var createCompanyTenant = function(p) {
+        var params = p;
+        
+        displaycreateCompanyDetailsSubmissionProgress('Submitting your company details, please wait...');
+        createTenant(function(status, tenant) {
+            if(status) { // company tenant created successfully
+                attachSubscriptionPlan(params.plan, params.token, tenant, function(status, result) { // plan subscription successed.
+                    if(status) {
+                        $mdDialog.hide(); $state.go('shellconfig');
+                    } else {
+                        displaycreateCompanyDetailsSubmissionError('Sorry, ' + result);
+                    }
+                });
+            }else {
+                $mdDialog.hide(); $state.go('createcompany');
+                displaycreateCompanyDetailsSubmissionError('Sorry, ' + tenant);
             }
         });
     }
-    var showCards = function (acc, package) {
-            $mdDialog.show({
-                controller: "myCardsCtrl",
-                templateUrl: 'partials/myCards.html',
-                parent: angular.element(document.body),
-                clickOutsideToClose: false,
-                locals: {
-                    account: acc,
-                    package: package
-                }
-            }).then(function (response) {
-                if (response) {
-                    if (response.purchase === true) // A user may either close this dialog to either purchase a tenant or open newCard dialog
-                    {
-                        $scope.submitCreateCompanyDetails();
-                    } else {
-                        newCard(response.account, response.app);
+    var createTenant = function(callback) {
+        if(!$rootScope.createCompanyDetails)
+            return;
+
+        var payload = $rootScope.createCompanyDetails;
+
+        $http({
+            method: 'POST',
+            url: '/apis/usertenant/tenant',
+            data: payload,
+            headers: {
+                'Content-type': 'application/json',
+                'securityToken': $helpers.getCookie('securityToken')
+            }
+        }).success(function(data, status, headers, config) {
+            if(data.Success) { $rootScope.TenantID = data.Data.TenantID; callback(true, data.Data); }
+            else callback(false, data.Message);
+        }).error(function(data, status, headers, config) {
+            callback(false);
+        })
+    }
+    var attachSubscriptionPlan = function(plan, token, tenant, callback) {
+        var subscription = {};
+        
+        if(token) subscription.token = token; 
+        subscription.planCode = plan.id;
+        subscription.tenantId = tenant.TenantID;
+        subscription.alacarts = [];
+
+        getSession(tenant.TenantID, function(status, session) {
+            if(status) {
+                $http({
+                    method: "POST",
+                    url: "/apis/plan/subscribe",
+                    data: subscription,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'securityToken': session.SecurityToken
                     }
-                }
-            });
-        }
-        // var platformRedirectLink = $window.location.protocol+"//"+$window.location.host+"/shell";
-        // var authorizationSuccessFull = function(){
-        // 	location.replace(platformRedirectLink);
-        // };
+                }).success(function(data, status, headers, config) {
+                    if(data.success) callback(true, data);
+                    else callback(false, data.message);
+                }).error(function(data, status, headers, config) {
+                    callback(true, data);
+                });
+            }else {
+                callback(false, session);
+            }
+        })
+    }
+    var getSession = function(tenantid, callback) {
+        var tenantId = (!tenantid) ? "Nil" : tenantid;
+        $http({
+            method: 'GET',
+            url: '/auth/GetSession/' + $helpers.getCookie('securityToken') +'/' + tenantId,
+            headers: {
+                'Content-type': 'application/json',
+            }
+        }).success(function(data, status, headers, config) {
+            if(data.hasOwnProperty('UserID')) callback(true, data);
+            else callback(false, data.Message);
+        }).error(function(data, status, headers, config) {
+            callback(false);
+        })
+    }
     var resetFormPrestine = function () {
         $scope.createCompanyDetails = {};
         // $scope.joinCompanyForm.$setPristine();
@@ -268,10 +311,8 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     var defaultDataInjection = function (data) {
         if (data.TenantType === "Compnay") {
             data.TenantID = data.TenantID + "." + $scope.hostedDomain;
-
         } else {
             data.TenantID = data.TenantID + ".dev." + $scope.hostedDomain;
-
         };
         return data;
     };
@@ -568,7 +609,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
 		];
     $scope.companyPricePlans = [
         {
-            id: "personal_space",
+            id: "dw_pkg_personal",
             name: "Personal Space",
             numberOfUsers: "1",
             numberOfApps: "Unlimited",
@@ -578,7 +619,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             Description: "desc"
         }
         , {
-            id: "mini_team",
+            id: "dw_pkg_mini_team",
             name: "We Are A Mini Team",
             numberOfUsers: "5",
             numberOfApps: "Unlimited",
@@ -588,7 +629,7 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
             Description: "desc"
         }
         , {
-            id: "world",
+            id: "dw_pkg_world_team",
             name: "We Are the World",
             numberOfUsers: "Unlimited",
             numberOfApps: "Unlimited",

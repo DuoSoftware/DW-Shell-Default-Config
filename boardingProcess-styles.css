@@ -733,13 +733,13 @@ ks-swiper-container {
 .plan-details p {
     margin: 7px;
 }
-.personal_space {
+.dw_pkg_personal {
     background-color: #0089ca !important;
 }
-.mini_team {
+.dw_pkg_world_team {
     background-color: #1e568f !important;
 }
-.world {
+.dw_pkg_mini_team {
     background-color: #bd4a8c !important;
 }
 .plan-title {
