@@ -167,10 +167,20 @@ p_boarding_module.controller("boarding-createcompany-ctrl", ["$window", "$scope"
     $scope.$watch("createCompanyDetails.TenantType", function () {
         if ($scope.createCompanyDetails.TenantType === "Developer") {
             $scope.hostedDomain = ".dev." + $scope.hostedDomain;
+            $scope.agreement = false;
+            console.log("make false");
         } else {
             $scope.hostedDomain = "." + $window.location.host;
+            $scope.agreement = true;
+            console.log("make true");
         }
     });
+    $scope.toggleAgreement = function () {
+        $scope.agreement = !$scope.agreement;
+    }
+    $scope.showDeveloperAgreement = function () {
+        window.open('partials/developerAgreement.html')
+    }
     $scope.submitCreateCompanyDetails = function (func) {
         displaycreateCompanyDetailsSubmissionProgress('Submitting your tenant details, please wait...');
         createTenant(function(status, response) {
